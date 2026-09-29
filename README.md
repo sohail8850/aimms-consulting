@@ -1,96 +1,35 @@
-# AIMMS Consulting
+# Predictive Sales Dashboard
+Interactive sales analytics dashboard by **AIMMS Consulting** — *Let's Color The Daring Dreams Together.*
 
-Strategic intelligence advisory site for **AIMMS Consulting**, founded by
-Sohail Bashir Butt a pharmaceutical, nutraceutical, and diagnostics
-advisory practice based in Lahore, Pakistan.
+**Live:** https://sohail8850.github.io/aimms-consulting/dashboards/predictive-sales/
 
-🔗 **Live site:** `https://sohail8850.github.io/aimms-consulting/`
-
----
-
-## About
-
-AIMMS Consulting reads pharma, nutraceutical, and diagnostics markets the
-way a hydrographer reads the ocean floor depth first, certainty second,
-opinion last. The site is built around the firm's proprietary **Strategic
-Intelligence Engine**, now expanded to eight analytical lenses.
-
-## The Eight-Lens Framework
-
-Presented on the site as a single vertical "depth gauge," running from the
-Mariana Trench floor up through the surface and on up Mount Everest to the
-executive summit:
-
-| Depth / Altitude | Zone | Lens |
-|---|---|---|
-| +8,849 m | Summit vantage | **Strategic Management Advisor** |
-| 5,364 – 8,849 m | Base Camp → Summit | **Mount-Everest-Level Growth of Business Development** |
-| 0 m | Sea level | **Semantic BI Analyst** |
-| -300 m | Sunlit zone | **Epistemic Rigor Lens** (Statistical Validity Analyst) |
-| -1,200 m | Twilight zone | **Strategic Brand Differentiation Specialist** |
-| -2,000 m | Midnight zone | **Behavioral & Cognitive Bias Lens** |
-| -4,000 m | Abyssal zone | **Pre-Mortem Foresighted Intelligence Analyst** |
-| -10,935 m | Challenger Deep | **Mariana Trench Level Market Researcher** |
-
-Every engagement is graded using a three-tier evidence scheme
-**Verified / Plausible-Unverified / Affect-Driven-Unfalsifiable** before
-any recommendation is made.
-
-## Pages
-
-| File | Description |
+## Contents
+| Path | Purpose |
 |---|---|
-| `index.html` | Home Hero, Framework (8 lenses), Services, Approach, Signal, Contact |
-| `projects.html` | Selected engagement archetypes across pharma, nutraceuticals, and diagnostics |
-| `case-studies.html` | Longer-form walkthroughs: Situation → Descent → Surfaced with |
-| `blog.html` | The AIMMS Insight Series links out to LinkedIn for full posts |
-| `aimms-consulting-single-page.html` | Everything above combined into one scrolling page |
+| `index.html` | Self-contained dashboard (Chart.js via CDN, data embedded) |
+| `data/Predictive_Sales_Data.csv` | Source data, 9,251 daily records |
+| `notebook/Predictive_Sales_Dataset.ipynb` | Exploratory analysis and Random Forest baseline |
 
-Only **one** of `index.html` or `aimms-consulting-single-page.html` should
-be used as the live homepage at a time see `site-builder/` below for how
-to switch which one GitHub Pages serves.
+## Dataset
+Date, Store_ID (19), Product_ID (100), Category (4), Price, Quantity_Sold, Discount, Customer_Rating, Revenue. One record per day, 01-Jan-2022 to 30-Apr-2047; no missing values. `Revenue = Price × Quantity × (1 − Discount)` exactly. The data appears synthetic, so it is used here to demonstrate analytics method, not to report real-world performance.
 
-## Design
+## Key findings
+- Discounts reduce revenue per sale ~30% (0–5% vs 25–30% band) with no gain in units sold.
+- No trend or seasonality: annual revenue is flat around $0.8M.
+- Categories (~25% each) and stores (±10%) are balanced.
+- Customer rating shows no relationship with revenue.
 
-- **Palette:** navy, amber, coral matching the AIMMS brand
-- **Type:** Fraunces (display) + IBM Plex Sans / IBM Plex Mono (body / data)
-- **Signature element:** a scroll-tracking "depth gauge" down the left rail,
-  reading out the current lens as you scroll
-- Fully self-contained HTML logo is embedded as base64, no external
-  image files or build step required to view any page
+## Modelling note (corrected notebook)
+The original notebook predicted Revenue from Price, Quantity and Discount, which reproduces the formula exactly (R² 0.9988, leakage). The corrected `notebook/Predictive_Sales_Dataset.ipynb` parses dates properly, removes the leaking columns, splits chronologically (train 2022–2042, test 2042–2047) and compares every model with naive baselines.
 
-## Updating the Site
+| Model | R² | MAE |
+|---|---|---|
+| Training-mean baseline | 0.0000 | 1,540.5 |
+| Yesterday (naive) | −1.0886 | 2,112.2 |
+| Ridge regression | −0.0014 | 1,542.6 |
+| Random Forest | 0.0001 | 1,541.5 |
 
-All content (lenses, projects, case studies, blog posts, services,
-contact info) is defined in one place:
+No model beats the mean: daily revenue has no autocorrelation, trend or seasonality in this dataset, so the honest forecast is flat at about $2.2K per day.
 
-```
-site-builder/aimms_master_build.py
-```
-
-Edit the data at the top of that file, then regenerate every page at once:
-
-```bash
-cd site-builder
-python3 aimms_master_build.py
-```
-
-This rebuilds `index.html`, `projects.html`, `case-studies.html`,
-`blog.html`, and `aimms-consulting-single-page.html` from the same source,
-so they never drift out of sync with each other.
-
-## Deployment
-
-Hosted via **GitHub Pages**, serving directly from the `main` branch root.
-Any commit to `main` updates the live site within a minute or two.
-
-## Contact
-
-- **Email:** aimmsconsulting@gmail.com
-- **Phone:** +92-300-498-4896
-- **LinkedIn:** [linkedin.com/in/aimms-consulting-35895439](https://www.linkedin.com/in/aimms-consulting-35895439)
-- **Location:** Lahore, Pakistan
-
----
-
-*Let's Color The Daring Dreams Together.*
+## Rebuild in Power BI
+Load CSV → Calendar table → measures (Total Revenue, Units Sold, Avg Rev per Sale, YoY %, 30-day average) → discount-band column → KPI cards, slicers, line/column/bar/donut visuals. Brand colors: navy `#0C2450`, gold `#F5A10F`, `#F5C542`.
