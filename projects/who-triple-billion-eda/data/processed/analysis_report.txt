@@ -1,0 +1,22 @@
+WHO TRIPLE BILLION - EDA REPORT
+==================================================
+
+DATASET
+- Records: 94,068 (year x geography x billion x tracer)
+- Years: 2018-2030 (last observed assumed: 2024)
+- Countries: 194 | WHO regions: 6 | Global: 1
+- Billions: HEP, HPOP, UHC | Tracers: 35 unique names
+
+DATA QUALITY
+- Missing values: 0
+- Duplicate rows: 0 | Duplicate keys: 0
+- Country totals reconcile to global totals (max gap 0.0000%)
+- Zero values: 28.6% | Negative values: 25.8%
+- Estimates outside their own bounds: 0.73%
+
+GLOBAL PEOPLE REACHED (millions), 2024 -> 2030
+- HEP: 734 -> 904
+- HPOP: 1,377 -> 2,001
+- UHC: 513 -> 892
+
+FIRST YEAR AT 1 BILLION: {'HEP': None, 'HPOP': 2022, 'UHC': None}

@@ -1,0 +1,200 @@
+{
+  "country_vs_global_max_gap_pct": 2.136268881184726e-08,
+  "global_millions": {
+    "2018": {
+      "HEP": 0.0,
+      "HPOP": 0.0,
+      "UHC": 0.0
+    },
+    "2019": {
+      "HEP": 299.9,
+      "HPOP": 407.5,
+      "UHC": 111.2
+    },
+    "2020": {
+      "HEP": 334.1,
+      "HPOP": 644.5,
+      "UHC": 93.7
+    },
+    "2021": {
+      "HEP": 296.5,
+      "HPOP": 841.5,
+      "UHC": 119.9
+    },
+    "2022": {
+      "HEP": 480.0,
+      "HPOP": 1027.6,
+      "UHC": 255.0
+    },
+    "2023": {
+      "HEP": 598.8,
+      "HPOP": 1215.3,
+      "UHC": 428.8
+    },
+    "2024": {
+      "HEP": 733.6,
+      "HPOP": 1377.4,
+      "UHC": 513.3
+    },
+    "2025": {
+      "HEP": 776.9,
+      "HPOP": 1520.3,
+      "UHC": 585.0
+    },
+    "2026": {
+      "HEP": 813.2,
+      "HPOP": 1646.1,
+      "UHC": 652.9
+    },
+    "2027": {
+      "HEP": 843.9,
+      "HPOP": 1755.5,
+      "UHC": 716.8
+    },
+    "2028": {
+      "HEP": 869.1,
+      "HPOP": 1851.8,
+      "UHC": 779.9
+    },
+    "2029": {
+      "HEP": 889.1,
+      "HPOP": 1930.7,
+      "UHC": 837.5
+    },
+    "2030": {
+      "HEP": 904.5,
+      "HPOP": 2001.4,
+      "UHC": 892.3
+    }
+  },
+  "first_year_at_target": {
+    "HEP": null,
+    "HPOP": 2022,
+    "UHC": null
+  },
+  "peak_gain_year": {
+    "HEP": 2019,
+    "HPOP": 2019,
+    "UHC": 2023
+  },
+  "region_share_pct_last_observed": {
+    "HEP": {
+      "South-East Asia": 56.4,
+      "Western Pacific": 8.3,
+      "Africa": 28.4,
+      "Eastern Mediterranean": 4.4,
+      "Europe": 5.8,
+      "Americas": -3.4
+    },
+    "HPOP": {
+      "South-East Asia": 52.4,
+      "Western Pacific": 26.4,
+      "Africa": 7.4,
+      "Eastern Mediterranean": 5.7,
+      "Europe": 3.6,
+      "Americas": 4.5
+    },
+    "UHC": {
+      "South-East Asia": 41.9,
+      "Western Pacific": 20.8,
+      "Africa": 17.5,
+      "Eastern Mediterranean": 7.7,
+      "Europe": 6.6,
+      "Americas": 5.5
+    }
+  },
+  "region_value_millions_last_observed": {
+    "HEP": {
+      "South-East Asia": 414.0,
+      "Western Pacific": 61.0,
+      "Africa": 208.4,
+      "Eastern Mediterranean": 32.6,
+      "Europe": 42.2,
+      "Americas": -24.6
+    },
+    "HPOP": {
+      "South-East Asia": 722.4,
+      "Western Pacific": 363.6,
+      "Africa": 101.5,
+      "Eastern Mediterranean": 78.8,
+      "Europe": 49.3,
+      "Americas": 61.8
+    },
+    "UHC": {
+      "South-East Asia": 215.3,
+      "Western Pacific": 106.9,
+      "Africa": 89.7,
+      "Eastern Mediterranean": 39.7,
+      "Europe": 33.8,
+      "Americas": 28.0
+    }
+  },
+  "concentration": {
+    "HEP": {
+      "top_country": "India",
+      "top1_share_%": 42.2,
+      "top5_share_%": 61.6,
+      "top10_share_%": 77.2,
+      "countries_negative": 59,
+      "countries_zero": 0
+    },
+    "HPOP": {
+      "top_country": "India",
+      "top1_share_%": 45.2,
+      "top5_share_%": 79.2,
+      "top10_share_%": 86.3,
+      "countries_negative": 52,
+      "countries_zero": 0
+    },
+    "UHC": {
+      "top_country": "India",
+      "top1_share_%": 30.0,
+      "top5_share_%": 56.8,
+      "top10_share_%": 67.5,
+      "countries_negative": 18,
+      "countries_zero": 0
+    }
+  },
+  "top_countries_millions": {
+    "HEP": {
+      "India": 309.4,
+      "Indonesia": 42.8,
+      "Ethiopia": 34.9,
+      "China": 33.7,
+      "Democratic Republic of the Congo": 31.2
+    },
+    "HPOP": {
+      "India": 621.9,
+      "China": 323.7,
+      "Pakistan": 60.0,
+      "Nigeria": 45.5,
+      "Bangladesh": 39.4
+    },
+    "UHC": {
+      "India": 153.8,
+      "China": 76.9,
+      "Indonesia": 33.4,
+      "Pakistan": 14.4,
+      "United States of America": 13.2
+    }
+  },
+  "top_positive_tracers": {
+    "HPOP:FUEL": 534.8,
+    "HPOP:HPOP_SANITATION": 457.9,
+    "HEP:ESPAR": 424.5,
+    "HEP:DETECT_RESPOND": 304.1,
+    "HPOP:PM25": 230.5
+  },
+  "top_negative_tracers": {
+    "HPOP:ADULT_OBESE": -155.1,
+    "HPOP:CHILD_OBESE": -44.7,
+    "UHC:FH": -43.8,
+    "HPOP:ALCOHOL": -20.5,
+    "UHC:FPG": -13.7
+  },
+  "zero_tracers": [
+    "HPOP:CHILD_VIOL",
+    "HPOP:DEVONTRACK",
+    "HPOP:IPV"
+  ]
+}
