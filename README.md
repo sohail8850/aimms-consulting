@@ -43,6 +43,7 @@ any recommendation is made.
 | `index.html` | Home Hero, Framework (8 lenses), Services, Approach, Signal, Contact |
 | `projects.html` | Selected engagement archetypes across pharma, nutraceuticals, and diagnostics |
 | `case-studies.html` | Longer-form walkthroughs: Situation → Descent → Surfaced with |
+| `certifications.html` | Certifications and credentials |
 | `blog.html` | The AIMMS Insight Series links out to LinkedIn for full posts |
 | `aimms-consulting-single-page.html` | Everything above combined into one scrolling page |
 
@@ -54,6 +55,12 @@ be used as the live homepage at a time.
 | Folder | Description |
 |---|---|
 | `dashboards/predictive-sales/` | Interactive sales analytics dashboard, with source data and analysis notebook |
+
+## Projects
+
+| Folder | Description |
+|---|---|
+| `projects/who-triple-billion-eda/` | Exploratory data analysis of WHO Triple Billion indicators (Python, Pandas, NumPy, Matplotlib/Seaborn), with cleaned data, summary statistics and analysis notebook |
 
 ## Design
 
