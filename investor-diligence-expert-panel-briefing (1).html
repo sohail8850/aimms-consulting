@@ -7,12 +7,12 @@
 <meta name="description" content="Evidence-graded briefing for an investor diligence panel evaluating a diagnostics acquisition, separating verified operating metrics from promotional claims in the target's own materials.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FFFFFF; --paper-alt:#F6F2E9; --paper-deep:#EEE6D4;
-    --ink:#14233F; --amber:#C6841F; --amber-fill:#E3A23C; --coral:#BF4632;
-    --slate:#5B6577; --line:rgba(20,35,63,0.12); --maxw:1120px;
+    --ink:#14233F; --navy:#0A1F44; --amber:#C6841F; --amber-fill:#E3A23C; --amber-soft:#F5C15C;
+    --coral:#BF4632; --slate:#5B6577; --line:rgba(20,35,63,0.12);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -20,95 +20,80 @@
   h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;color:var(--ink);}
   a{color:inherit;}
   img{max-width:100%;display:block;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
-  .narrow{max-width:860px;margin:0 auto;padding:0 28px;}
-  @media (max-width:640px){.wrap,.narrow{padding:0 20px;}}
+  .wrap{width:min(1010px,calc(100% - 40px));margin:0 auto;}
 
-  /* Header (same as site) */
-  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
-  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
-  .brand a{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;}
-  .brandmark{width:42px;height:42px;flex-shrink:0;object-fit:contain;}
-  .brand-name{font-family:'Fraunces',serif;font-size:20px;letter-spacing:0.015em;line-height:1.15;}
-  .brand-name b{color:var(--amber);font-weight:600;}
-  .brand-tag{display:block;font-family:'IBM Plex Sans',sans-serif;font-size:11px;color:var(--slate);letter-spacing:0.02em;}
-  nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0;}
-  nav ul a{font-size:13.5px;text-transform:uppercase;letter-spacing:0.05em;color:var(--slate);text-decoration:none;transition:color .2s;}
-  nav ul a:hover,nav ul a:focus-visible,nav ul a.active{color:var(--amber);}
-  @media (max-width:900px){nav ul{display:none;}}
+  /* Header: stacked brand + nav, same as Field Force page */
+  header{background:var(--paper);border-bottom:1px solid var(--line);padding:14px 0 16px;}
+  .brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:inherit;}
+  .brand img{width:56px;height:56px;object-fit:contain;flex-shrink:0;}
+  .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:28px;line-height:1.1;color:var(--navy);}
+  .brand-name b{color:var(--amber);font-weight:700;}
+  .brand-tag{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:15px;color:var(--amber);margin-top:2px;}
+  nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;margin:14px 0 0;padding:0;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.06em;color:var(--slate);text-decoration:none;transition:color .2s;}
+  nav a:hover,nav a.active{color:var(--amber);}
 
-  /* Hero: dark navy, serif headline */
-  .hero{background:var(--ink);color:#fff;padding:64px 0 56px;}
-  .crumb{font-size:13px;color:var(--amber-fill);margin-bottom:18px;}
-  .crumb a{text-decoration:none;}
-  .crumb a:hover{text-decoration:underline;}
-  .hero h1{color:#fff;font-size:clamp(2.1rem,4.6vw,3.3rem);line-height:1.12;max-width:20ch;}
-  .hero .sector{display:block;margin-top:14px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#C9D2E0;}
-  .pills{margin-top:22px;display:flex;gap:8px;flex-wrap:wrap;}
-  .pills span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--amber-fill);border:1px solid rgba(227,162,60,0.6);border-radius:999px;padding:5px 14px;}
-
-  /* Outcome block */
-  .outcome{margin:44px 0 0;border:1px solid var(--amber-fill);border-left:4px solid var(--amber-fill);background:var(--paper-alt);padding:22px 26px;}
-  .outcome .k{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--coral);margin-bottom:6px;}
-  .outcome p{margin:0;font-family:'Fraunces',serif;font-size:1.2rem;line-height:1.45;}
+  /* Hero: dark navy, left aligned */
+  .hero{background:var(--navy);color:#fff;padding:56px 0 60px;}
+  .crumb{font-size:16px;font-weight:600;color:var(--amber-fill);margin-bottom:22px;}
+  .crumb a{color:var(--amber-fill);}
+  .hero h1{color:#fff;font-weight:700;font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.1;max-width:20ch;}
+  .hero .sub{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.5rem);color:#CFE0FA;margin:26px 0 0;}
+  .pills{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;}
+  .pills span{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber-soft);border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.05);border-radius:999px;padding:8px 16px;}
+  .outcome{margin-top:44px;border-left:4px solid var(--amber-fill);padding:2px 0 2px 22px;max-width:760px;}
+  .outcome .k{display:block;font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--amber-soft);margin-bottom:8px;}
+  .outcome p{margin:0;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.35;color:#fff;text-align:left;hyphens:auto;}
 
   /* Body */
-  main{padding:8px 0 24px;}
-  h2{font-size:clamp(1.5rem,2.8vw,2rem);margin:52px 0 14px;}
-  h3{font-size:1.1rem;margin-bottom:8px;}
-  p{text-align:justify;text-justify:inter-word;hyphens:auto;color:var(--slate);}
-  li{color:var(--slate);text-align:justify;}
-  ul.plain{padding-left:20px;} ul.plain li{margin-bottom:8px;}
-  .note{font-size:14px;border-top:1px solid var(--line);padding-top:14px;}
-  .tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);}
-  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:620px;}
-  th{background:var(--ink);color:#fff;text-align:left;padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;}
+  main{padding:20px 0 10px;}
+  main .wrap > *{max-width:860px;}
+  main .wrap > .tablewrap,main .wrap > .aspects{max-width:none;}
+  h2{font-size:clamp(1.6rem,3vw,2.1rem);margin:56px 0 16px;}
+  h3{font-size:1.15rem;margin:0 0 8px;}
+  p,li{color:var(--slate);}
+  p{text-align:justify;text-justify:inter-word;hyphens:auto;margin:0 0 16px;}
+  ul.plain{padding-left:20px;margin:0 0 16px;} ul.plain li{margin-bottom:8px;}
+  .note{font-size:14.5px;border-top:1px solid var(--line);padding-top:16px;}
+  .tablewrap{overflow-x:auto;margin:18px 0 24px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
   td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:var(--slate);}
   td:first-child{color:var(--ink);font-weight:500;}
   tr:nth-child(even) td{background:var(--paper-alt);}
-  .grade{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);white-space:nowrap;}
+  .grade{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);}
 
-  .aspects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:18px 0;}
-  @media (max-width:700px){.aspects{grid-template-columns:1fr;}}
-  .aspect{padding:22px 24px;border:1px solid var(--line);border-top:3px solid var(--amber-fill);background:var(--paper);}
-  .aspect .n{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--amber);display:block;margin-bottom:8px;}
-  .aspect p{margin:0;font-size:14.5px;}
+  .aspects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 40px;margin:20px 0 10px;}
+  @media (max-width:760px){.aspects{grid-template-columns:1fr;}}
+  .aspect{border-top:3px solid var(--amber-fill);padding-top:14px;}
+  .aspect p{margin:0 0 8px;font-size:15px;}
+  .aspect .test{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--coral);text-align:left;}
 
-  .memo{list-style:none;padding:0;margin:18px 0;counter-reset:m;}
-  .memo li{counter-increment:m;display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line);}
-  .memo li:last-child{border-bottom:1px solid var(--line);}
-  .memo li::before{content:counter(m,decimal-leading-zero);font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber);}
-  .memo b{color:var(--ink);}
-
-  /* CTA */
-  .cta{background:var(--paper-deep);margin-top:56px;padding:56px 0;text-align:center;}
-  .cta h2{margin:0 auto 12px;max-width:22ch;}
-  .cta p{text-align:center;margin:0 auto 26px;max-width:56ch;}
-  .btn{display:inline-flex;align-items:center;padding:14px 24px;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--amber-fill);transition:all .2s;margin:4px;}
+  /* CTA + footer */
+  .cta{background:var(--paper-alt);margin-top:56px;padding:56px 0;border-top:1px solid var(--line);}
+  .cta h2{margin:0 0 12px;max-width:24ch;}
+  .cta p{max-width:60ch;}
+  .btn{display:inline-flex;align-items:center;padding:14px 24px;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--amber-fill);transition:all .2s;margin:6px 12px 0 0;}
   .btn-solid{background:var(--amber-fill);color:#1B1206;}
   .btn-solid:hover{background:transparent;color:var(--amber);}
   .btn-ghost{color:var(--ink);border-color:var(--line);}
   .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
-
-  footer{padding:32px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  footer{padding:28px 0;}
   footer p{margin:0;font-size:12.5px;color:var(--slate);text-align:left;}
-  .footer-brand{display:flex;align-items:center;gap:10px;}
-  .footer-brand .brandmark{width:30px;height:30px;}
   ::selection{background:var(--amber-fill);color:#1B1206;}
   :focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+  @media (max-width:640px){p,li{text-align:left;}}
 </style>
 </head>
 <body>
 
 <header>
-  <nav class="wrap">
-    <div class="brand">
-      <a href="index.html">
-        <img class="brandmark" src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
-        <div class="brand-name">AIMMS <b>Consulting</b><span class="brand-tag">Let&rsquo;s Color The Daring Dreams Together</span></div>
-      </a>
-    </div>
-    <ul>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+      <span><span class="brand-name">AIMMS <b>Consulting</b></span><span class="brand-tag">Let&rsquo;s Color The Daring Dreams Together</span></span>
+    </a>
+    <nav><ul>
       <li><a href="index.html#framework">Framework</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#approach">Approach</a></li>
@@ -117,28 +102,28 @@
       <li><a href="case-studies.html">Case Studies</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-  </nav>
+    </ul></nav>
+  </div>
 </header>
 
 <section class="hero">
-  <div class="narrow">
+  <div class="wrap">
     <div class="crumb"><a href="projects.html">Projects</a> / Expert Panel Briefing</div>
     <h1>Expert Panel Briefing</h1>
-    <span class="sector">Investor Diligence &middot; Diagnostics Acquisition</span>
+    <p class="sub">Investor diligence &middot; Diagnostics acquisition</p>
     <div class="pills"><span>Market Research</span><span>Semantic BI</span></div>
+    <div class="outcome"><span class="k">Outcome</span>
+      <p>A diligence memo the panel could act on without needing to re-verify every underlying claim themselves.</p></div>
   </div>
 </section>
 
 <main>
-<div class="narrow">
-
-  <div class="outcome"><span class="k">Outcome</span>
-    <p>A diligence memo the panel could act on without needing to re-verify every underlying claim themselves.</p></div>
+<div class="wrap">
 
   <h2>The brief</h2>
   <p>An investor group is evaluating the acquisition of a diagnostics business. The target&rsquo;s information memorandum, management presentation and website describe a modern, high-growth, technology-led laboratory. Some of that is operating fact. Much of it is promotion. The panel has a few days, limited access to management, and no time to audit every sentence.</p>
   <p>The assignment was to stand between the target&rsquo;s materials and the panel&rsquo;s decision: grade every material claim for evidence, mark what is verified, and hand the panel a memo where the remaining uncertainty is named, sized and priced rather than hidden inside confident language.</p>
+  <p><b>The question we were asked:</b> is this a good business? <b>The question we answered:</b> which parts of the story can the panel rely on today, and what would it cost to find out about the rest?</p>
 
   <h2>The real-world benchmark: Theranos</h2>
   <p>Diagnostics is the sector where the gap between claimed and actual capability has been most expensive. In March 2018 the US Securities and Exchange Commission charged Theranos, its founder and its former president with raising more than $700 million from investors through exaggerated or false statements about the company&rsquo;s technology, business and financial performance. According to the SEC&rsquo;s complaint, the company&rsquo;s own analyzer could complete only a small number of tests, and the vast majority of patient tests ran on commercial analyzers made by others. Theranos and its founder settled without admitting or denying the allegations.</p>
@@ -164,46 +149,44 @@
     <tr><td>&ldquo;Accredited, quality-assured laboratories&rdquo;</td><td class="grade">Verified if certificates match</td><td>Which sites hold which accreditation, with what scope and expiry? Is proficiency-testing data available?</td></tr>
     <tr><td>Audited revenue and monthly test volume per site</td><td class="grade">Verified</td><td>Reconcile billing-system exports to the accounts. This becomes the spine of the memo.</td></tr>
   </table></div>
-</div>
 
-<div class="wrap">
-  <div class="narrow" style="padding:0;"><h2>Key aspects of the diligence</h2></div>
-  <div class="aspects" style="max-width:804px;margin-left:auto;margin-right:auto;">
-    <div class="aspect"><span class="n">01</span><h3>Revenue quality</h3><p>Split by test, site, channel and payer. Separate recurring clinician and corporate referrals from one-off or project work.</p></div>
-    <div class="aspect"><span class="n">02</span><h3>Concentration risk</h3><p>Dependence on a few referring doctors, hospitals or corporate clients, and on a few collection points.</p></div>
-    <div class="aspect"><span class="n">03</span><h3>Technology reality</h3><p>Instruments owned, utilisation per analyzer, share of tests run in-house, and the evidence behind any proprietary claim.</p></div>
-    <div class="aspect"><span class="n">04</span><h3>Quality and compliance</h3><p>Accreditation scope, proficiency-testing record, turnaround times, repeat-test and error rates, regulatory correspondence.</p></div>
-    <div class="aspect"><span class="n">05</span><h3>Supply chain</h3><p>Reagent and consumable dependence, import and currency exposure, supplier contract terms and lock-in.</p></div>
-    <div class="aspect"><span class="n">06</span><h3>Cash and working capital</h3><p>Receivable days by payer type, collection history, capex needed to hold capacity, and normalised EBITDA.</p></div>
-    <div class="aspect"><span class="n">07</span><h3>People and governance</h3><p>Key-person dependence on founders and pathologists, retention terms, related-party dealings.</p></div>
-    <div class="aspect"><span class="n">08</span><h3>Market position</h3><p>Real catchment, competitor pricing and prescriber behaviour, read at trench depth rather than headline share.</p></div>
+  <h2>Eight aspects of a diagnostics acquisition</h2>
+  <p>A weakness in any one of these surfaces after closing as an operating problem, so each was reviewed with a plain test.</p>
+  <div class="aspects">
+    <div class="aspect"><h3>Revenue quality</h3><p>Split by test, site, channel and payer. Recurring clinician and corporate referrals are separated from one-off or project work.</p><div class="test">Test: can recurring revenue be separated from one-off work?</div></div>
+    <div class="aspect"><h3>Concentration risk</h3><p>Dependence on a few referring doctors, hospitals or corporate clients, and on a few collection points.</p><div class="test">Test: what is lost if the top five referrers leave?</div></div>
+    <div class="aspect"><h3>Technology reality</h3><p>Instruments owned, utilisation per analyzer, share of tests run in-house, and the evidence behind any proprietary claim.</p><div class="test">Test: what share of billed tests runs on the claimed platform?</div></div>
+    <div class="aspect"><h3>Quality and compliance</h3><p>Accreditation scope, proficiency-testing record, turnaround times, repeat-test and error rates, regulatory correspondence.</p><div class="test">Test: does every site&rsquo;s accreditation cover what it bills?</div></div>
+    <div class="aspect"><h3>Supply chain</h3><p>Reagent and consumable dependence, import and currency exposure, supplier contract terms and lock-in.</p><div class="test">Test: what happens to margin if reagent prices or the currency move?</div></div>
+    <div class="aspect"><h3>Cash and working capital</h3><p>Receivable days by payer type, collection history, capex needed to hold capacity, and normalised EBITDA.</p><div class="test">Test: does reported EBITDA convert to cash?</div></div>
+    <div class="aspect"><h3>People and governance</h3><p>Key-person dependence on founders and pathologists, retention terms, related-party dealings.</p><div class="test">Test: who must stay for the value to survive, and what keeps them?</div></div>
+    <div class="aspect"><h3>Market position</h3><p>Real catchment, competitor pricing and prescriber behaviour, read at trench depth rather than headline share.</p><div class="test">Test: does ground-level data support the claimed share?</div></div>
   </div>
-</div>
 
-<div class="narrow">
-  <h2>How the engine was applied</h2>
+  <h2>How the lenses were applied</h2>
+  <p>The engagement drew on six lenses of the AIMMS Strategic Intelligence Engine, in different proportions.</p>
   <ul class="plain">
     <li><b>Semantic BI Analyst:</b> graded every claim in the target&rsquo;s materials.</li>
     <li><b>Epistemic Rigor Lens:</b> tested how each growth, volume and margin figure was produced, including sample, period and definition.</li>
-    <li><b>Mariana Trench Market Researcher:</b> rebuilt market size and competitive position from ground-level data instead of the deck&rsquo;s top-down figures.</li>
-    <li><b>Behavioral &amp; Cognitive Bias Lens:</b> flagged halo effects, anchoring on the asking price and sunk-cost momentum within the deal team.</li>
-    <li><b>Pre-Mortem Analyst:</b> assumed the deal had failed in year two and listed the first signals that would have shown it.</li>
+    <li><b>Mariana Trench Level Market Researcher:</b> rebuilt market size and competitive position from ground-level data instead of the deck&rsquo;s top-down figures.</li>
+    <li><b>Behavioral and Cognitive Bias Lens:</b> flagged halo effects, anchoring on the asking price and sunk-cost momentum within the deal team.</li>
+    <li><b>Pre-Mortem Foresighted Intelligence Analyst:</b> assumed the deal had failed in year two and listed the first signals that would have shown it.</li>
     <li><b>Strategic Management Advisor:</b> reconciled the findings into a go, conditional-go or no-go view for the panel&rsquo;s own decision.</li>
   </ul>
 
-  <h2>The memo the panel received</h2>
-  <ol class="memo">
-    <li><span><b>Verdict page.</b> The conclusion in plain terms, with the three findings that most affect price or structure.</span></li>
-    <li><span><b>Claim ledger.</b> Every material claim, its grade, its source, and the test that would change the grade.</span></li>
-    <li><span><b>Verified operating base.</b> The revenue, volume and margin the panel can rely on today.</span></li>
-    <li><span><b>Set-aside list.</b> Promotional statements given no weight in valuation.</span></li>
-    <li><span><b>Conditions and protections.</b> Warranties, price adjustments, conditions precedent and earn-out hooks tied to the unverified items.</span></li>
-    <li><span><b>Pre-mortem signals.</b> The early warnings to monitor in the first two quarters after closing.</span></li>
-    <li><span><b>Questions for management.</b> A short, ranked list, so limited meeting time goes to the items that move value.</span></li>
-  </ol>
+  <h2>What the panel receives</h2>
+  <ul class="plain">
+    <li>A verdict page with the three findings that most affect price or structure</li>
+    <li>A claim ledger: every material claim, its grade, its source, and the test that would change the grade</li>
+    <li>The verified operating base: the revenue, volume and margin the panel can rely on today</li>
+    <li>A set-aside list of promotional statements given no weight in valuation</li>
+    <li>Conditions and protections: warranties, price adjustments, conditions precedent and earn-out hooks tied to unverified items</li>
+    <li>Pre-mortem signals to monitor in the first two quarters after closing</li>
+    <li>A short, ranked list of questions for management, so limited meeting time goes to the items that move value</li>
+  </ul>
   <p>The panel could see which claims carried the deal and which were decoration. Re-verification was limited to the few items that remained Plausible-Unverified, each with a named test.</p>
 
-  <p class="note"><b>Scope note.</b> This project is a representative engagement archetype: the sector and problem are real, and client identities are held confidential. It is an evidence and commercial review, not investment, accounting or legal advice. Valuation and transaction terms remain the responsibility of the investors and their qualified advisers.</p>
+  <p class="note"><b>Scope note.</b> This project is a representative engagement archetype. The sector and the problem are real; the client&rsquo;s identity is held confidential and no client figures are shown. It is an evidence and commercial review, not investment, accounting or legal advice. Valuation and transaction terms remain the responsibility of the investors and their qualified advisers.</p>
 
   <h2>Sources</h2>
   <ul class="plain">
@@ -222,12 +205,8 @@
   </div>
 </section>
 
-<footer class="wrap">
-  <div class="footer-brand">
-    <img class="brandmark" src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
-    <p>&copy; 2026 AIMMS Consulting. Strategic Intelligence Engine.</p>
-  </div>
-  <p>Strategy &middot; BD Growth &middot; Semantic BI &middot; Epistemic Rigor &middot; Brand Differentiation &middot; Cognitive Bias &middot; Pre-Mortem &middot; Market Research</p>
+<footer>
+  <div class="wrap"><p>&copy; 2026 AIMMS Consulting. Let's Color The Daring Dreams Together.</p></div>
 </footer>
 
 </body>
