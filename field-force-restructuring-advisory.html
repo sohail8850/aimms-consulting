@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Force Restructuring Advisory | AIMMS Consulting</title>
+<meta name="description" content="Field force restructuring advisory for a national commercial organisation: a planned sales reorganisation reviewed for sequencing risk and rebuilt as a phased rollout that reduced territory disruption.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F44;
+  --navy-2:#13306B;
+  --amber:#F0A500;
+  --coral:#FF6F59;
+  --verified:#1F7A5C;
+  --paper:#F6F8FC;
+  --white:#FFFFFF;
+  --text:#1B2A4A;
+  --muted:#5A6882;
+  --line:#D9E0EC;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Liberation Sans',Arial,Helvetica,sans-serif;
+  --mono:'IBM Plex Mono',Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);line-height:1.65;font-size:17px}
+a{color:var(--navy-2)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* header: matched to pre-mortem-stress-test.html */
+header.site{background:#fff;border-bottom:1px solid #E6E1D4}
+header.site .wrap{display:block;padding-top:16px;padding-bottom:14px}
+.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:54px;width:auto;background:none;border-radius:0;display:block}
+.brand .name{display:block;font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.1;color:var(--navy)}
+.brand .name span{color:#C98A1B}
+.brand .tagline{display:block;font-family:var(--serif);font-style:italic;font-weight:600;font-size:14px;color:#C98A1B;margin-top:2px}
+nav ul{list-style:none;margin:14px 0 0;padding:0;display:flex;gap:26px;flex-wrap:wrap}
+nav a{font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;font-size:14px;color:#5A6882;text-decoration:none}
+nav a:hover,nav a.active{color:#C98A1B}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
+.crumb{font-size:15px;color:#C98A1B;margin:0 0 22px;font-weight:600}
+.crumb a{color:#C98A1B}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,5.2vw,56px);line-height:1.08;margin:0 0 14px;max-width:18ch}
+.hero .sub{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,24px);color:#DCE5F7;margin:0 0 26px;max-width:36ch}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 34px}
+.tag{font-family:var(--mono);font-size:13px;padding:5px 12px;border:1px solid #3A5694;border-radius:999px;color:#FFD470;font-weight:500}
+.outcome{border-left:5px solid var(--amber);padding:6px 0 6px 20px;max-width:62ch}
+.outcome b{display:block;font-family:var(--serif);font-size:17px;color:#FFD470;font-weight:700;margin-bottom:4px}
+.outcome p{margin:0;font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.35}
+
+/* sections */
+section{padding:60px 0 8px}
+h2{font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);line-height:1.15;color:var(--navy);margin:0 0 14px}
+h3{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--navy);margin:0 0 8px}
+.lead{font-size:19px;max-width:66ch;color:var(--text)}
+p{max-width:68ch}
+.note{background:#FFF6DC;border:1px solid #F2D58A;border-left:5px solid var(--amber);padding:16px 20px;border-radius:6px;max-width:74ch;font-size:16px;margin:22px 0}
+
+/* timeline (genuinely sequential) */
+.timeline{list-style:none;margin:28px 0 0;padding:0;border-left:3px solid var(--navy);max-width:78ch}
+.timeline li{position:relative;padding:0 0 26px 26px}
+.timeline li::before{content:"";position:absolute;left:-10px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--amber);border:3px solid var(--paper)}
+.timeline .when{font-family:var(--mono);font-size:14px;color:var(--navy-2);font-weight:700}
+.timeline .what{margin:2px 0 0}
+
+/* the ledger: the one memorable element */
+.ledger{margin-top:28px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--white)}
+.ledger-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{text-align:left;vertical-align:top;padding:16px 18px;border-bottom:1px solid var(--line);font-size:15.5px}
+th{background:var(--navy);color:#fff;font-family:var(--serif);font-weight:700;font-size:15px}
+tr:last-child td{border-bottom:none}
+td.claim{font-family:var(--serif);font-size:17px;color:var(--navy);width:18%}
+td.rebuilt{background:#F1F7F4;width:28%}
+.ledger-cap{font-size:14px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line);margin:0;max-width:none}
+
+/* cards */
+.tests{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
+.test{background:var(--white);border:1px solid var(--line);border-top:5px solid var(--navy);padding:20px 22px;border-radius:6px}
+.test p{margin:0;font-size:16px}
+.test .check{margin:12px 0 0;font-family:var(--mono);font-size:13px;color:#8A5A00;font-weight:500}
+
+.formula{margin-top:28px;background:var(--navy);color:#fff;border-radius:10px;padding:26px 28px}
+.formula h3{color:var(--amber)}
+.formula p{max-width:none;font-family:var(--serif);font-size:clamp(18px,2.2vw,22px);line-height:1.5;margin:0}
+
+/* deliverables */
+.deliver{columns:2 320px;column-gap:40px;max-width:900px;padding-left:20px;margin-top:18px}
+.deliver li{margin-bottom:10px;break-inside:avoid}
+
+.cta{margin:56px 0 0;background:var(--navy);color:#fff;padding:44px 0}
+.cta h2{color:#fff}
+.cta p{color:#DCE5F7}
+.btn{display:inline-block;background:var(--amber);color:#2A1D00;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:6px}
+.btn:hover{background:#FFC240}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #5B77B5;margin-left:10px}
+footer{background:#071634;color:#9FB0D3;font-size:14px;padding:22px 0;text-align:center}
+
+/* one shared text column so justified edges line up on both sides */
+section p,section .lead,.cta p,.note,.deliver{max-width:820px}
+/* justified body text across the page */
+main .outcome p,main .lead,main section p,main .timeline .what,.test p,main .note,main .deliver li,main td,main .cta p,main .ledger-cap{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+main .formula p{text-align:left;hyphens:none;-webkit-hyphens:none;line-height:1.9}
+.crumb{text-align:left;hyphens:none}
+.test .check{text-align:left;hyphens:none}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .hero{padding:40px 0 48px}
+  .btn.ghost{margin:12px 0 0}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+      <span>
+        <span class="name">AIMMS <span>Consulting</span></span>
+        <span class="tagline">Let&rsquo;s Color The Daring Dreams Together</span>
+      </span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html#framework">Framework</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#approach">Approach</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a class="active" href="projects.html">Projects</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <p class="crumb"><a href="projects.html">Projects</a> / Field Force Restructuring Advisory</p>
+    <h1>Field Force Restructuring Advisory</h1>
+    <p class="sub">National commercial organisation</p>
+    <div class="tags">
+      <span class="tag">Strategic Management</span>
+      <span class="tag">Pre-Mortem</span>
+    </div>
+    <div class="outcome">
+      <b>Outcome</b>
+      <p>A phased rollout sequence that reduced territory disruption during the transition window.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="brief">
+  <h2>The brief</h2>
+  <p class="lead">A planned national sales reorganisation was reviewed for sequencing risk. The order in which territories were touched mattered as much as the design itself.</p>
+  <p>The leadership team had a restructuring design it believed in: new regional boundaries, a revised layer structure, re-cut territories and role changes across the field force. The design had been debated for months. The rollout plan had not. It was a single go-live date and a list of territories to be "migrated".</p>
+  <p>That gap is where national reorganisations usually lose their value. Prescribers and pharmacies do not pause while a territory is being redrawn, and a representative who has just learned that the doctors he has called on for years now belong to someone else does not call on them with the same energy. The cost of a restructure is paid in the transition window, and the length and shape of that window is a choice.</p>
+  <div class="note">
+    <strong>The question we were asked:</strong> is the design sound? <strong>The question we answered:</strong> in what order can this design be introduced so that the market barely notices the transition?
+  </div>
+</section>
+
+<section id="aspects">
+  <h2>Eight aspects of a national commercial restructuring</h2>
+  <p class="lead">A weakness in any one of these surfaces as a field-level problem in the transition window, so each was reviewed with a plain test.</p>
+  <div class="tests">
+    <div class="test">
+      <h3>Strategic intent and architecture</h3>
+      <p>What the organisation is being restructured to achieve, and which structure follows: therapy-area units, channel-based units, geography-led or a hybrid. Structure is chosen after the intent is written down, never before.</p>
+      <p class="check">Test: could the intent be proven wrong in 12 months?</p>
+    </div>
+    <div class="test">
+      <h3>Portfolio-to-field alignment</h3>
+      <p>A field force is only as focused as the portfolio it carries. Launch volume, brand priority and call frequency are reconciled before any headcount moves, so the restructure does not simply redistribute fragmentation.</p>
+      <p class="check">Test: can each team actually detail what it carries?</p>
+    </div>
+    <div class="test">
+      <h3>Sizing, layers and spans</h3>
+      <p>Representatives, first-line managers, regional managers and national roles, sized from workload and customer potential. Spans of control and layers are tested for both cost and coaching quality.</p>
+      <p class="check">Test: can every first-line manager coach in the field?</p>
+    </div>
+    <div class="test">
+      <h3>Territory and customer realignment</h3>
+      <p>Territories are rebuilt from prescriber potential, channel economics and travel time. The central decision is how many existing customer relationships change owner, since each change is a relationship at risk.</p>
+      <p class="check">Test: which handovers carry the most revenue exposure?</p>
+    </div>
+    <div class="test">
+      <h3>Roles and capability</h3>
+      <p>Where roles change (specialist detailing, key account, institutional, OTC and nutraceutical channel), the capability gap is named per role and per person, with training that completes before the new role goes live.</p>
+      <p class="check">Test: is anyone starting a new role untrained?</p>
+    </div>
+    <div class="test">
+      <h3>Incentives and performance</h3>
+      <p>Schemes are redesigned with the structure and run in parallel during transition, so no representative is penalised for the restructure itself. Targets reset only where the customer base actually changes.</p>
+      <p class="check">Test: does the scheme reward what the new structure needs?</p>
+    </div>
+    <div class="test">
+      <h3>People transition and governance</h3>
+      <p>Role mapping, selection criteria, redeployment, exits, legal and HR compliance, and a communication sequence that tells each person their own outcome before the grapevine does. Critical talent and relationships are protected first.</p>
+      <p class="check">Test: who must not be lost, and what keeps them?</p>
+    </div>
+    <div class="test">
+      <h3>Infrastructure and tracking</h3>
+      <p>Targeting lists, CRM and reporting hierarchy, sales data mapped to the new geography, and a weekly dashboard of leading indicators. Without clean mapped data, performance cannot be read during the transition.</p>
+      <p class="check">Test: can leadership see a problem in week two, not quarter two?</p>
+    </div>
+  </div>
+</section>
+
+<section id="premortem">
+  <h2>Why sequencing was the hidden variable</h2>
+  <p class="lead">The pre-mortem assumed the reorganisation had already failed twelve months after go-live, then asked what the earliest warning signs would have been.</p>
+  <ul class="deliver">
+    <li><strong>Simultaneity.</strong> Touching every territory at once disturbs every customer relationship in the same quarter, and competitors see a market-wide window.</li>
+    <li><strong>Order of exposure.</strong> Territories differ in revenue concentration, competitive intensity and manager strength. Treating them as equivalent puts the riskiest in the same wave as the safest.</li>
+    <li><strong>Dependency chains.</strong> A territory cannot be redrawn until its neighbour is settled, its manager appointed and its data mapped.</li>
+    <li><strong>Calendar collisions.</strong> Waves landing on a launch, a major scheme, a quarter-end or a seasonal peak.</li>
+    <li><strong>Information lag.</strong> Learning about a failing territory only from quarterly numbers, after the damage is done.</li>
+  </ul>
+
+  <h3 style="margin-top:34px">The Pre-Mortem Warning Constellation</h3>
+  <p>The cluster of signals that would appear first if the plan were already failing, each with an owner and a trigger for action.</p>
+  <div class="tests">
+    <div class="test"><h3>Call-rate drop</h3><p>Calls per day on re-assigned doctors below the pre-change baseline for two consecutive weeks.</p></div>
+    <div class="test"><h3>Resignation pattern</h3><p>Notice from high performers clustered in one region or one manager's team.</p></div>
+    <div class="test"><h3>Channel stock-outs</h3><p>Pharmacy and distributor orders slipping in territories mid-handover.</p></div>
+    <div class="test"><h3>Handover gaps</h3><p>Customers with no named representative beyond a set number of days after go-live.</p></div>
+    <div class="test"><h3>Manager vacancy</h3><p>First-line manager positions unfilled when a wave opens.</p></div>
+    <div class="test"><h3>Data mismatch</h3><p>Sales and target data not reconciling to the new territory codes after the first month-end.</p></div>
+  </div>
+</section>
+
+<section id="rollout">
+  <h2>The phased rollout sequence</h2>
+  <p class="lead">Each territory was scored on revenue concentration, competitive intensity, manager readiness, share of customers changing owner and data readiness. The scores set the wave order, and a gate on evidence sits between waves.</p>
+
+  <div class="ledger">
+    <div class="ledger-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Wave</th>
+          <th scope="col">Territories</th>
+          <th scope="col">Purpose</th>
+          <th scope="col">Gate to proceed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="claim">Wave 0: Preparation</td>
+          <td>None moved. Structure, roles, data and communications readied.</td>
+          <td>Appoint managers, train for new roles, map data to new codes, finalise the incentive bridge.</td>
+          <td class="rebuilt">Managers named for all Wave 1 territories. Data reconciles on a dry run.</td>
+        </tr>
+        <tr>
+          <td class="claim">Wave 1: Pilot</td>
+          <td>A small set of lower-exposure territories with strong managers and few customer changes.</td>
+          <td>Prove the playbook and surface what the design missed while a mistake is cheap.</td>
+          <td class="rebuilt">Warning Constellation signals within tolerance. Fixes applied to the playbook.</td>
+        </tr>
+        <tr>
+          <td class="claim">Wave 2: Core</td>
+          <td>The majority of territories, grouped by dependency so neighbours move together.</td>
+          <td>Move the body of the field force on a tested playbook, clear of launches and quarter-ends.</td>
+          <td class="rebuilt">Call rates and orders at or near baseline. Attrition within the expected range.</td>
+        </tr>
+        <tr>
+          <td class="claim">Wave 3: High exposure</td>
+          <td>Territories with the highest revenue concentration or competitive pressure, moved last.</td>
+          <td>Move the most valuable relationships with the most tested playbook and the closest tracking.</td>
+          <td class="rebuilt">Executive review of each territory before go-live, with named relationship owners.</td>
+        </tr>
+        <tr>
+          <td class="claim">Stabilise</td>
+          <td>All territories.</td>
+          <td>Run parallel incentives to the end of the window, retire the bridge, review the design against field feedback.</td>
+          <td class="rebuilt">Transition window formally closed by leadership.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="ledger-cap">Wave contents and gates illustrate the method. They are set afresh for each organisation from its own territory data.</p>
+  </div>
+
+  <div class="note">
+    The most exposed territories moved last, not first. By Wave 3 the playbook had been corrected twice, the managers had seen it work, and the data had been through two month-end reconciliations.
+  </div>
+</section>
+
+<section id="lenses">
+  <h2>How the lenses were applied</h2>
+  <p class="lead">The engagement drew on five lenses of the AIMMS Strategic Intelligence Engine, in different proportions.</p>
+  <ul class="deliver">
+    <li><strong>Strategic Management Advisor:</strong> reconciling design, portfolio and rollout into one course of action a board could approve.</li>
+    <li><strong>Pre-Mortem Foresighted Intelligence Analyst:</strong> the forward run to failure and the Warning Constellation.</li>
+    <li><strong>Behavioral and Cognitive Bias Lens:</strong> challenging planning optimism, attachment to the original go-live date and the assumption that field teams would adapt quickly.</li>
+    <li><strong>Epistemic Rigor Lens:</strong> testing the territory potential and workload models before they were used to move people.</li>
+    <li><strong>Mariana Trench Level Market Researcher:</strong> prescriber concentration and channel economics by territory, feeding the exposure scores.</li>
+  </ul>
+</section>
+
+<section id="outcome">
+  <h2>What the client receives</h2>
+  <ul class="deliver">
+    <li>A territory exposure score and wave assignment for every territory</li>
+    <li>A phased rollout calendar clear of launches, schemes and quarter-ends</li>
+    <li>A gate checklist for each wave, with owners and thresholds</li>
+    <li>The Pre-Mortem Warning Constellation and a weekly transition dashboard</li>
+    <li>A handover plan naming the relationship owner for every high-value customer</li>
+    <li>A parallel incentive bridge so no one is penalised for the restructure itself</li>
+  </ul>
+  <p>The restructure design was left largely intact. What changed was the order, the gates between waves and the early-warning signals leadership watched.</p>
+  <div class="note"><strong>Scope note.</strong> This project is a representative engagement archetype. The sector and the problem are real; the client's identity is held confidential and no client figures are shown. Employment, HR and legal steps should be cleared with qualified counsel for each jurisdiction.</div>
+</section>
+
+</div>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>Is your reorganisation's rollout order as carefully designed as its structure?</h2>
+    <p>Share the design and the territory list. The review starts with an exposure score for every territory.</p>
+    <a class="btn" href="index.html#contact">Start a conversation</a>
+    <a class="btn ghost" href="projects.html">Back to projects</a>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">&copy; 2026 AIMMS Consulting. Let's Color The Daring Dreams Together.</div>
+</footer>
+
+</body>
+</html>
