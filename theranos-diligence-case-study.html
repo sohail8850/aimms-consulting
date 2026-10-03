@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Theranos Diligence Autopsy | AIMMS Consulting</title>
+<meta name="description" content="A public-record autopsy of the Theranos investment story, graded claim by claim on the AIMMS evidence scale, showing what an evidence-graded diligence briefing is designed to catch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFFFF; --paper-alt:#F6F2E9; --paper-deep:#EEE6D4;
+    --ink:#14233F; --navy:#0A1F44; --amber:#C6841F; --amber-fill:#E3A23C; --amber-soft:#F5C15C;
+    --coral:#BF4632; --slate:#5B6577; --line:rgba(20,35,63,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;margin:0;color:var(--ink);}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{width:min(1010px,calc(100% - 40px));margin:0 auto;}
+
+  /* Header: stacked brand + nav, same as Field Force page */
+  header{background:var(--paper);border-bottom:1px solid var(--line);padding:14px 0 16px;}
+  .brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:inherit;}
+  .brand img{width:56px;height:56px;object-fit:contain;flex-shrink:0;}
+  .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:28px;line-height:1.1;color:var(--navy);}
+  .brand-name b{color:var(--amber);font-weight:700;}
+  .brand-tag{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:15px;color:var(--amber);margin-top:2px;}
+  nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;margin:14px 0 0;padding:0;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.06em;color:var(--slate);text-decoration:none;transition:color .2s;}
+  nav a:hover,nav a.active{color:var(--amber);}
+
+  /* Hero: dark navy, left aligned */
+  .hero{background:var(--navy);color:#fff;padding:56px 0 60px;}
+  .crumb{font-size:16px;font-weight:600;color:var(--amber-fill);margin-bottom:22px;}
+  .crumb a{color:var(--amber-fill);}
+  .hero h1{color:#fff;font-weight:700;font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.1;max-width:20ch;}
+  .hero .sub{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.5rem);color:#CFE0FA;margin:26px 0 0;}
+  .pills{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;}
+  .pills span{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--amber-soft);border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.05);border-radius:999px;padding:8px 16px;}
+  .outcome{margin-top:44px;border-left:4px solid var(--amber-fill);padding:2px 0 2px 22px;max-width:760px;}
+  .outcome .k{display:block;font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--amber-soft);margin-bottom:8px;}
+  .outcome p{margin:0;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.35;color:#fff;text-align:left;hyphens:auto;}
+
+  /* Body */
+  main{padding:20px 0 10px;}
+  main .wrap > *{max-width:860px;}
+  main .wrap > .tablewrap,main .wrap > .aspects{max-width:none;}
+  h2{font-size:clamp(1.6rem,3vw,2.1rem);margin:56px 0 16px;}
+  h3{font-size:1.15rem;margin:0 0 8px;}
+  p,li{color:var(--slate);}
+  p{text-align:justify;text-justify:inter-word;hyphens:auto;margin:0 0 16px;}
+  ul.plain{padding-left:20px;margin:0 0 16px;} ul.plain li{margin-bottom:8px;}
+  .note{font-size:16.5px;line-height:1.7;color:var(--ink);background:var(--paper-alt);border-left:4px solid var(--amber-fill);padding:20px 24px;margin:28px 0 16px;}
+  .note b:first-child{color:var(--amber);font-family:'Fraunces',serif;font-weight:700;font-size:1.05em;}
+  .lead{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(1.25rem,2.2vw,1.55rem);line-height:1.5;color:var(--ink);margin:24px 0 8px;}
+  .tablewrap{overflow-x:auto;margin:18px 0 24px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px;}
+  th{background:var(--navy);color:#fff;text-align:left;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;font-weight:500;}
+  td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:var(--slate);}
+  td:first-child{color:var(--ink);font-weight:500;}
+  tr:nth-child(even) td{background:var(--paper-alt);}
+  .grade{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amber);}
+
+  .aspects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 40px;margin:20px 0 10px;}
+  @media (max-width:760px){.aspects{grid-template-columns:1fr;}}
+  .aspect{border-top:3px solid var(--amber-fill);padding-top:14px;}
+  .aspect p{margin:0 0 8px;font-size:15px;}
+  .aspect .test{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--coral);text-align:left;}
+
+  /* CTA + footer */
+  .cta{background:var(--paper-alt);margin-top:56px;padding:56px 0;border-top:1px solid var(--line);}
+  .cta h2{margin:0 0 12px;max-width:24ch;}
+  .cta p{max-width:60ch;}
+  .btn{display:inline-flex;align-items:center;padding:14px 24px;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;text-decoration:none;border:1px solid var(--amber-fill);transition:all .2s;margin:6px 12px 0 0;}
+  .btn-solid{background:var(--amber-fill);color:#1B1206;}
+  .btn-solid:hover{background:transparent;color:var(--amber);}
+  .btn-ghost{color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--amber);color:var(--amber);}
+  footer{padding:28px 0;}
+  footer p{margin:0;font-size:12.5px;color:var(--slate);text-align:left;}
+  ::selection{background:var(--amber-fill);color:#1B1206;}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
+  @media (max-width:640px){p,li{text-align:left;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+      <span><span class="brand-name">AIMMS <b>Consulting</b></span><span class="brand-tag">Let&rsquo;s Color The Daring Dreams Together</span></span>
+    </a>
+    <nav><ul>
+      <li><a href="index.html#framework">Framework</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#approach">Approach</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="case-studies.html" class="active">Case Studies</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="crumb"><a href="case-studies.html">Case Studies</a> / The Theranos Diligence Autopsy</div>
+    <h1>The Theranos Diligence Autopsy</h1>
+    <p class="sub">A public-record reading of a diagnostics investment story</p>
+    <div class="pills"><span>Semantic BI</span><span>Epistemic Rigor</span><span>Market Research</span></div>
+    <div class="outcome"><span class="k">The lesson</span>
+      <p>The claims that carried the valuation were the ones an investor could have asked to see: which tests ran on whose machine, and who had really deployed it.</p></div>
+  </div>
+</section>
+
+<main>
+<div class="wrap">
+
+  <h2>The case</h2>
+  <p>Theranos is the best-documented example of a diagnostics story that outran its operating facts. At its height in 2014 the private company was valued at $9 billion, on the promise of a miniaturised blood-testing device that could run a wide range of tests from a few drops of blood. In 2015 a Wall Street Journal investigation questioned whether the technology worked as described. By March 2018 the US Securities and Exchange Commission had charged the company, its founder and its former president with raising more than $700 million from investors through exaggerated or false statements about its technology, business and financial performance.</p>
+  <p><b>The question the market asked:</b> is this a revolutionary company? <b>The question an evidence-graded briefing asks:</b> which of these statements could a diligence team have checked in a week, and what would it have found?</p>
+  <p class="note"><b>How this case is used.</b> Everything below comes from public records and press reports listed under Sources. AIMMS Consulting had no involvement with Theranos. This is a reading of the public record using the Semantic BI and Epistemic Rigor lenses, not a judgment on any individual investor&rsquo;s diligence.</p>
+
+  <h2>The public record in sequence</h2>
+  <div class="tablewrap"><table>
+    <tr><th>When</th><th>What happened</th></tr>
+    <tr><td>2014</td><td>Theranos is valued at $9 billion by private investors.</td></tr>
+    <tr><td>2015</td><td>The Wall Street Journal publishes an investigation questioning the validity of the company&rsquo;s testing technology.</td></tr>
+    <tr><td>2016</td><td>A government report on the company&rsquo;s laboratory reveals a range of problems.</td></tr>
+    <tr><td>March 14, 2018</td><td>The SEC charges Theranos, its founder and its former president with &ldquo;massive fraud.&rdquo; Theranos and its founder settle without admitting or denying the allegations. The company shuts down the same year.</td></tr>
+    <tr><td>January 2022</td><td>Founder Elizabeth Holmes is convicted on four counts: three of investor wire fraud and one of conspiracy. She is acquitted on four counts relating to patients.</td></tr>
+    <tr><td>July 2022</td><td>Former president Ramesh Balwani is found guilty on 12 counts.</td></tr>
+    <tr><td>November 18, 2022</td><td>Holmes is sentenced to 135 months in prison.</td></tr>
+  </table></div>
+
+  <h2>The claims, graded</h2>
+  <p>The claims below are those the SEC alleged were exaggerated or false. Each is graded as it would have been at the surface, before any outcome was known, using the AIMMS scale.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Claim as alleged by the SEC</th><th>Grade at the surface</th><th>The check that decides it</th><th>What the SEC said</th></tr>
+    <tr><td>A proprietary analyzer could run a wide range of tests from a few drops of blood</td><td class="grade">Affect-Driven-Unfalsifiable</td><td>Per-test billing data split by instrument: how many billed tests ran on the company&rsquo;s own device?</td><td>The analyzer could complete only a small number of tests. The vast majority of patient tests ran on commercial analyzers made by others.</td></tr>
+    <tr><td>The technology was deployed by the US Department of Defense on the battlefield</td><td class="grade">Plausible-Unverified</td><td>The contract, the contracting officer, a direct reference from the customer.</td><td>The technology was never deployed by the US military.</td></tr>
+    <tr><td>Strong business and financial performance</td><td class="grade">Plausible-Unverified</td><td>Reconcile reported revenue to bank receipts and audited accounts, by customer.</td><td>The company made exaggerated or false statements about its business and financial performance.</td></tr>
+    <tr><td>A $9 billion valuation</td><td class="grade">Derived from the above</td><td>Re-run the valuation after setting aside every claim graded below Verified.</td><td>More than $700 million was raised from investors.</td></tr>
+  </table></div>
+  <p>The first row carries the case. Whether a company&rsquo;s own device runs the tests it sells is the single most checkable operating fact in diagnostics, and it was the one the offering leaned on hardest.</p>
+
+  <h2>How the lenses read it</h2>
+  <ul class="plain">
+    <li><b>Semantic BI Analyst:</b> the language was ambitious and unfalsifiable. &ldquo;Revolutionary&rdquo; and &ldquo;a few drops&rdquo; name no volume, no period and no comparator.</li>
+    <li><b>Epistemic Rigor Lens:</b> a technology claim needs a validation method: independent comparison against established analyzers, published, with sample sizes. Demonstrations are not validation.</li>
+    <li><b>Mariana Trench Level Market Researcher:</b> real laboratory economics start from tests billed, instruments owned and utilisation. None of these depends on the founder&rsquo;s account.</li>
+    <li><b>Behavioral and Cognitive Bias Lens:</b> halo effects from a charismatic founder and a prestigious board, and fear of missing out on a private round that others had already joined.</li>
+    <li><b>Pre-Mortem Foresighted Intelligence Analyst:</b> assume the investment failed in year three and ask for the earliest sign. The first answer is a regulator or a journalist finding the gap between claim and operation.</li>
+  </ul>
+
+  <h2>Five requests that would have settled it</h2>
+  <p>These are the requests an evidence-graded briefing would put to management in the first week. They are AIMMS&rsquo;s reading of the case, not a statement about what any investor did or did not ask.</p>
+  <ul class="plain">
+    <li><b>1. Tests by instrument.</b> A billed-test ledger showing which device ran each test.</li>
+    <li><b>2. Independent validation.</b> Comparison data from a laboratory the company does not control.</li>
+    <li><b>3. Customer and partner confirmation.</b> Direct contact with the named customers, not introductions through management.</li>
+    <li><b>4. Regulatory standing.</b> Inspection reports, accreditation scope and correspondence.</li>
+    <li><b>5. Revenue to cash.</b> Reported revenue reconciled to bank receipts and audited accounts.</li>
+  </ul>
+
+  <p class="lead">Every one of these answers can be produced in days. A company that cannot produce them has told the panel something already.</p>
+
+  <p class="note"><b>Scope note.</b> This case study reads public records and press reports. Theranos and its founder settled the SEC&rsquo;s civil charges without admitting or denying them. Criminal convictions are as reported: Holmes was convicted on four counts and acquitted on four others. It is a commercial and evidential analysis, not legal advice. The method it illustrates is applied in the <a href="investor-diligence-expert-panel-briefing.html">Expert Panel Briefing</a> project.</p>
+
+  <h2>Sources</h2>
+  <ul class="plain">
+    <li><a href="https://www.sec.gov/news/press-release/2018-41">SEC press release 2018-41: Theranos, CEO Holmes, and Former President Balwani Charged With Massive Fraud (March 14, 2018)</a></li>
+    <li><a href="https://www.sec.gov/litigation/litreleases/lr-24069">SEC Litigation Release No. 24069 (March 19, 2018)</a></li>
+    <li><a href="https://www.technologyreview.com/2018/03/14/241044/sec-charges-theranos-founder-elizabeth-holmes-with-massive-fraud">MIT Technology Review: SEC charges Theranos founder Elizabeth Holmes with massive fraud (March 14, 2018)</a></li>
+    <li><a href="https://www.nbcsandiego.com/news/business/money-report/former-theranos-ceo-elizabeth-holmes-sentenced-to-more-than-11-years-in-prison/3102918/">CNBC via NBC San Diego: Elizabeth Holmes sentenced to more than 11 years in prison (November 18, 2022)</a></li>
+    <li><a href="https://breakingnews.ie/world/update-4-elizabeth-holmes-sentenced-to-135-months-in-prison-for-theranos-fraud-1394421.html">Reuters via BreakingNews.ie: Holmes sentenced to 135 months; convicted on four counts, acquitted on four (November 18, 2022)</a></li>
+  </ul>
+</div>
+</main>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Is the story you are being asked to fund one the evidence can support?</h2>
+    <p>Send the information memorandum. The review starts with the five requests above, and a claim-by-claim evidence grade.</p>
+    <a class="btn btn-solid" href="index.html#contact">Start a conversation</a>
+    <a class="btn btn-ghost" href="case-studies.html">Back to case studies</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap"><p>&copy; 2026 AIMMS Consulting. Let's Color The Daring Dreams Together.</p></div>
+</footer>
+
+</body>
+</html>
