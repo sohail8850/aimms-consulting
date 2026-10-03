@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nutraceutical Brand Reformulation Relaunch | AIMMS Consulting</title>
+<meta name="description" content="Positioning and claims review for a nutraceutical reformulation relaunch: generic wellness language tested for falsifiability and rebuilt around claims tied to the reformulation's verifiable change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F44;
+  --navy-2:#13306B;
+  --amber:#F0A500;
+  --coral:#FF6F59;
+  --verified:#1F7A5C;
+  --paper:#F6F8FC;
+  --white:#FFFFFF;
+  --text:#1B2A4A;
+  --muted:#5A6882;
+  --line:#D9E0EC;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Liberation Sans',Arial,Helvetica,sans-serif;
+  --mono:'IBM Plex Mono',Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);line-height:1.65;font-size:17px}
+a{color:var(--navy-2)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* header: matched to pre-mortem-stress-test.html */
+header.site{background:#fff;border-bottom:1px solid #E6E1D4}
+header.site .wrap{display:block;padding-top:16px;padding-bottom:14px}
+.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:54px;width:auto;background:none;border-radius:0;display:block}
+.brand .name{display:block;font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.1;color:var(--navy)}
+.brand .name span{color:#C98A1B}
+.brand .tagline{display:block;font-family:var(--serif);font-style:italic;font-weight:600;font-size:14px;color:#C98A1B;margin-top:2px}
+nav ul{list-style:none;margin:14px 0 0;padding:0;display:flex;gap:26px;flex-wrap:wrap}
+nav a{font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;font-size:14px;color:#5A6882;text-decoration:none}
+nav a:hover,nav a.active{color:#C98A1B}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
+.crumb{font-size:15px;color:#C98A1B;margin:0 0 22px;font-weight:600}
+.crumb a{color:#C98A1B}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,5.2vw,56px);line-height:1.08;margin:0 0 14px;max-width:18ch}
+.hero .sub{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,24px);color:#DCE5F7;margin:0 0 26px;max-width:36ch}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 34px}
+.tag{font-family:var(--mono);font-size:13px;padding:5px 12px;border:1px solid #3A5694;border-radius:999px;color:#FFD470;font-weight:500}
+.outcome{border-left:5px solid var(--amber);padding:6px 0 6px 20px;max-width:62ch}
+.outcome b{display:block;font-family:var(--serif);font-size:17px;color:#FFD470;font-weight:700;margin-bottom:4px}
+.outcome p{margin:0;font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.35}
+
+/* sections */
+section{padding:60px 0 8px}
+h2{font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);line-height:1.15;color:var(--navy);margin:0 0 14px}
+h3{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--navy);margin:0 0 8px}
+.lead{font-size:19px;max-width:66ch;color:var(--text)}
+p{max-width:68ch}
+.note{background:#FFF6DC;border:1px solid #F2D58A;border-left:5px solid var(--amber);padding:16px 20px;border-radius:6px;max-width:74ch;font-size:16px;margin:22px 0}
+
+/* timeline (genuinely sequential) */
+.timeline{list-style:none;margin:28px 0 0;padding:0;border-left:3px solid var(--navy);max-width:78ch}
+.timeline li{position:relative;padding:0 0 26px 26px}
+.timeline li::before{content:"";position:absolute;left:-10px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--amber);border:3px solid var(--paper)}
+.timeline .when{font-family:var(--mono);font-size:14px;color:var(--navy-2);font-weight:700}
+.timeline .what{margin:2px 0 0}
+
+/* the claims ledger: the one memorable element */
+.ledger{margin-top:28px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--white)}
+.ledger-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{text-align:left;vertical-align:top;padding:16px 18px;border-bottom:1px solid var(--line);font-size:15.5px}
+th{background:var(--navy);color:#fff;font-family:var(--serif);font-weight:700;font-size:15px}
+tr:last-child td{border-bottom:none}
+td.claim{font-family:var(--serif);font-size:17px;color:var(--navy);width:25%}
+.grade{display:inline-block;font-family:var(--mono);font-size:12.5px;font-weight:500;padding:4px 10px;border-radius:4px;color:#fff;white-space:nowrap}
+.g-bad{background:var(--coral);color:#3A0A02}
+.g-mid{background:var(--amber);color:#3A2800}
+.g-ok{background:var(--verified)}
+td.rebuilt{background:#F1F7F4;width:30%}
+.ledger-cap{font-size:14px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line);margin:0;max-width:none}
+
+/* test */
+.tests{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
+.test{background:var(--white);border:1px solid var(--line);border-top:5px solid var(--navy);padding:20px 22px;border-radius:6px}
+.test p{margin:0;font-size:16px}
+
+.formula{margin-top:28px;background:var(--navy);color:#fff;border-radius:10px;padding:26px 28px}
+.formula h3{color:var(--amber)}
+.formula p{max-width:none;font-family:var(--serif);font-size:clamp(18px,2.2vw,22px);line-height:1.5;margin:0}
+.formula .slot{background:#1E3F82;border-radius:4px;padding:2px 8px;color:#FFE19A;display:inline-block;line-height:1.5;margin:2px 0}
+
+/* deliverables */
+.deliver{columns:2 320px;column-gap:40px;max-width:900px;padding-left:20px;margin-top:18px}
+.deliver li{margin-bottom:10px;break-inside:avoid}
+
+/* sources */
+.sources{font-size:15px;color:var(--muted)}
+.sources li{margin-bottom:6px}
+
+.cta{margin:56px 0 0;background:var(--navy);color:#fff;padding:44px 0}
+.cta h2{color:#fff}
+.cta p{color:#DCE5F7}
+.btn{display:inline-block;background:var(--amber);color:#2A1D00;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:6px}
+.btn:hover{background:#FFC240}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #5B77B5;margin-left:10px}
+footer{background:#071634;color:#9FB0D3;font-size:14px;padding:22px 0;text-align:center}
+
+/* one shared text column so justified edges line up on both sides */
+section p,section .lead,.cta p,.note,.deliver{max-width:820px}
+/* justified body text across the page */
+main .outcome p,main .lead,main section p,main .timeline .what,.test p,main .note,main .deliver li,main td,main .cta p,main .ledger-cap{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+main .formula p{text-align:left;hyphens:none;-webkit-hyphens:none;line-height:1.9}
+.crumb{text-align:left;hyphens:none}
+.sources li{text-align:left;hyphens:none}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .hero{padding:40px 0 48px}
+  .btn.ghost{margin:12px 0 0}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+      <span>
+        <span class="name">AIMMS <span>Consulting</span></span>
+        <span class="tagline">Let&rsquo;s Color The Daring Dreams Together</span>
+      </span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html#framework">Framework</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#approach">Approach</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a class="active" href="projects.html">Projects</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <p class="crumb"><a href="projects.html">Projects</a> / Nutraceutical Brand Reformulation Relaunch</p>
+    <h1>Nutraceutical Brand Reformulation Relaunch</h1>
+    <p class="sub">Positioning and claims review</p>
+    <div class="tags">
+      <span class="tag">Brand Differentiation</span>
+      <span class="tag">Semantic BI</span>
+    </div>
+    <div class="outcome">
+      <b>Outcome</b>
+      <p>A positioning statement specific enough to be proven right or wrong, and legally defensible either way.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="brief">
+  <h2>The brief</h2>
+  <p class="lead">A nutraceutical brand reformulates its flagship product and plans a relaunch. The draft messaging leans on generic wellness language: "supports your best self," "total body defence," "feel the difference." None of it can be shown to be false, which is exactly the problem.</p>
+  <p>Two lenses of the AIMMS Strategic Intelligence Engine were applied. The Semantic BI Analyst graded every public claim for evidence. The Strategic Brand Differentiation Specialist tested whether the positioning could be proven wrong. What survived was rebuilt around the one thing that actually changed: the reformulation itself.</p>
+</section>
+
+<section id="reference">
+  <h2>The real-world benchmark: Airborne</h2>
+  <p class="lead">Airborne is the clearest public record of what happens when a nutraceutical brand builds its identity on claims it cannot substantiate. It was the top-selling immune-support supplement in the US, and its history is documented in regulator and court filings.</p>
+
+  <div class="note">
+    <strong>How this reference is used.</strong> The Airborne facts below come from public sources (FTC releases and orders, trade press) listed at the bottom of the page. AIMMS Consulting was not engaged by Airborne. The case is used as a benchmark for what a claims review is designed to catch before a regulator or a class action does.
+  </div>
+
+  <ol class="timeline">
+    <li>
+      <span class="when">1999</span>
+      <p class="what">Airborne launches as an effervescent tablet, built around a founder story and cold-fighting positioning.</p>
+    </li>
+    <li>
+      <span class="when">May 2001 to November 2007</span>
+      <p class="what">The purchase window later covered by the consumer class-action settlement (<em>Wilson v. Airborne</em>), with refunds for up to six purchases.</p>
+    </li>
+    <li>
+      <span class="when">August 14, 2008</span>
+      <p class="what">Airborne Health agrees to pay up to $30 million to settle FTC charges that it lacked adequate evidence for advertising that marketed the tablet as a cold prevention and treatment remedy. The FTC also alleged that "clinically proven" claims were false. The company denied wrongdoing.</p>
+    </li>
+    <li>
+      <span class="when">After the order</span>
+      <p class="what">The order bars false and unsubstantiated cold-prevention, germ-fighting and efficacy claims. Messaging shifts toward the softer language of "supporting the immune system," which commentators at the time criticised as the same promise in vaguer wording.</p>
+    </li>
+    <li>
+      <span class="when">2010</span>
+      <p class="what">The FTC settles with Walgreens for nearly $6 million over its "Wal-Born" imitation line, which borrowed the same unsubstantiated claims. Copying a category leader's language carries its liability with it.</p>
+    </li>
+  </ol>
+
+  <p>The lesson for a reformulation relaunch: the brand's old claims do not become safe because the formula changed, and a new formula does not become differentiated because the language got softer. Softer language is harder to prove false, but it is also harder to prove true, and it gives a competitor nothing to be measured against.</p>
+</section>
+
+<section id="review">
+  <h2>The claims review</h2>
+  <p class="lead">Each draft claim is graded on the Semantic BI scale: Verified, Plausible-Unverified, or Affect-Driven-Unfalsifiable. Failing claims are rebuilt, not deleted.</p>
+
+  <div class="ledger">
+    <div class="ledger-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Draft claim</th>
+          <th scope="col">Grade</th>
+          <th scope="col">Falsifiability test</th>
+          <th scope="col">Rebuilt around the reformulation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="claim">"Helps fight germs and keeps you healthy"</td>
+          <td><span class="grade g-bad">Affect-Driven-Unfalsifiable</span></td>
+          <td>No endpoint, no population, no timeframe. Nothing a study or a customer could contradict. This is the claim family the FTC acted on in the Airborne case.</td>
+          <td class="rebuilt">Retire. Do not soften into a vaguer version of the same promise.</td>
+        </tr>
+        <tr>
+          <td class="claim">"Supports your immune system"</td>
+          <td><span class="grade g-mid">Plausible-Unverified</span></td>
+          <td>Structure/function wording is permitted, but it names no mechanism or measure, so it cannot lose an argument. It also cannot win one.</td>
+          <td class="rebuilt">Keep only if tied to a named ingredient, its dose, and the evidence for that dose.</td>
+        </tr>
+        <tr>
+          <td class="claim">"New and improved formula"</td>
+          <td><span class="grade g-bad">Affect-Driven-Unfalsifiable</span></td>
+          <td>"Improved" has no comparator. Improved against what, measured how?</td>
+          <td class="rebuilt">State the change: the ingredient added, removed or re-dosed, with old and new amounts per serving.</td>
+        </tr>
+        <tr>
+          <td class="claim">"Clinically proven"</td>
+          <td><span class="grade g-bad">Affect-Driven-Unfalsifiable</span></td>
+          <td>Fails unless the study tested this exact product, in this population, with a published endpoint. The FTC alleged this wording was false in the Airborne matter.</td>
+          <td class="rebuilt">Cite the actual study, its design and its limits, or drop the phrase.</td>
+        </tr>
+        <tr>
+          <td class="claim">"Now contains [X] mg of [ingredient], up from [Y] mg"</td>
+          <td><span class="grade g-ok">Verified</span></td>
+          <td>Checkable by a third-party lab assay on any batch. It can be proven false, which is what makes it defensible.</td>
+          <td class="rebuilt">Keep as the lead claim. Pair it with a batch-testing statement.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="ledger-cap">Draft claims in the first three rows are illustrative of the generic wellness register this review targets. The "Clinically proven" and "fight germs" rows reflect claim types named in the public FTC record. The last row is a template, not a client figure.</p>
+  </div>
+</section>
+
+<section id="test">
+  <h2>The falsifiability test</h2>
+  <p class="lead">A claim stays in the relaunch only if it passes all three questions.</p>
+  <div class="tests">
+    <div class="test">
+      <h3>What would disprove it?</h3>
+      <p>Name the assay, study result or customer measure that would show the claim is wrong. If nothing could, the claim is differentiation theatre.</p>
+    </div>
+    <div class="test">
+      <h3>What does it rest on?</h3>
+      <p>Point to the specific evidence: a lab certificate, a dose-matched trial, a labelled amount. Evidence about a different dose or product does not transfer.</p>
+    </div>
+    <div class="test">
+      <h3>Can a competitor say the same?</h3>
+      <p>If every brand in the category can print the sentence, it positions nobody. Differentiation lives in what only this reformulation did.</p>
+    </div>
+  </div>
+
+  <div class="formula">
+    <h3>The rebuilt positioning statement</h3>
+    <p>For <span class="slot">[specific consumer]</span>, [brand] now contains <span class="slot">[ingredient, amount, change from old formula]</span>, the amount used in <span class="slot">[named evidence]</span>, so that <span class="slot">[one measurable outcome, within a stated timeframe]</span>. This would be shown false if <span class="slot">[the observable result that would disprove it]</span>.</p>
+  </div>
+</section>
+
+<section id="outcome">
+  <h2>What the client receives</h2>
+  <ul class="deliver">
+    <li>A line-by-line evidence grade of every claim in the relaunch materials</li>
+    <li>A retire, keep or rebuild decision for each claim, with the reason</li>
+    <li>A single positioning statement built on the reformulation's verifiable change</li>
+    <li>A falsifiability note for each claim: what would disprove it and what it rests on</li>
+    <li>A substantiation file index, so regulators, retailers and counsel see the same evidence</li>
+    <li>A competitor language map showing which phrases the category already owns</li>
+  </ul>
+  <p>The result is a relaunch whose claims can be tested in market and defended in front of a regulator. If a claim is proven wrong, the brand learns it from its own data first.</p>
+  <div class="note"><strong>Scope note.</strong> This is a commercial positioning and evidence review, not legal advice. Final claim wording should be cleared by qualified regulatory counsel for each market.</div>
+</section>
+
+<section id="sources">
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li><a href="https://www.ftc.gov/news-events/news/press-releases/2008/08/makers-airborne-settle-ftc-charges-deceptive-advertising-agreement-brings-total-settlement-funds-30">FTC press release: Makers of Airborne settle FTC charges of deceptive advertising (August 2008)</a></li>
+    <li><a href="https://www.ftc.gov/sites/default/files/documents/cases/2008/08/080814airborneorder.pdf">FTC stipulated final order, FTC v. Airborne Health, Inc. (August 2008)</a></li>
+    <li><a href="https://www.ftc.gov/news-events/news/press-releases/2010/03/walgreens-will-pay-nearly-6-million-settle-ftc-deceptive-advertising-charges">FTC press release: Walgreens settlement over "Wal-Born" supplements (2010)</a></li>
+    <li><a href="https://www.adweek.com/brand-marketing/airborne-ftc-reach-settlement-96658/">Adweek: Airborne, FTC reach settlement (August 2008)</a></li>
+    <li><a href="https://sciencebasedmedicine.org/airborne-admits-false-advertising/">Science-Based Medicine: Airborne settles case on false advertising (commentary)</a></li>
+  </ul>
+</section>
+
+</div>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>Is your relaunch claim one that could be proven wrong?</h2>
+    <p>Send the draft messaging. The review starts with a line-by-line evidence grade.</p>
+    <a class="btn" href="index.html#contact">Start a conversation</a>
+    <a class="btn ghost" href="projects.html">Back to projects</a>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">&copy; 2026 AIMMS Consulting. Let's Color The Daring Dreams Together.</div>
+</footer>
+
+</body>
+</html>
