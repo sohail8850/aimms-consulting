@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Claim That Couldn't Survive the Descent — AIMMS Consulting</title>
+<meta name="description" content="An anonymised AIMMS case study: a national pharma launch campaign built on three headline claims, graded before it went to media.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Shared site tokens (identical to case-studies.html) ---------- */
+  :root{
+    --paper:#FFFFFF;
+    --paper-alt:#F6F2E9;
+    --paper-deep:#EEE6D4;
+    --ink:#14233F;
+    --amber:#C6841F;
+    --amber-fill:#E3A23C;
+    --coral:#BF4632;
+    --slate:#5B6577;
+    --green:#2F6B4F;
+    --line: rgba(20,35,63,0.12);
+    --maxw: 1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    word-spacing:0.05em;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{display:flex; align-items:center; justify-content:space-between; padding:18px 0;}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brandmark{width:42px;height:42px;flex-shrink:0;object-fit:contain;}
+  .brand-name{font-family:'Fraunces',serif;font-size:20px;letter-spacing:0.015em; color:var(--ink);}
+  .brand-name b{color:var(--amber); font-weight:600;}
+  nav ul{list-style:none; display:flex; gap:22px; margin:0; padding:0;}
+  nav ul a{
+    font-size:13.5px; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--slate); text-decoration:none; transition:color .2s;
+  }
+  nav ul a:hover, nav ul a:focus-visible{color:var(--amber);}
+  nav ul a.active{color:var(--amber);}
+  @media (max-width:900px){nav ul{display:none;}}
+
+  .eyebrow{
+    font-size:16px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em;
+    color:var(--coral); margin-bottom:22px; display:block;
+  }
+  .eyebrow a{text-decoration:none;}
+  .eyebrow a:hover{text-decoration:underline;}
+
+  /* ---------- Page hero (same pattern as subpages) ---------- */
+  .page-hero{padding:32px 0 36px; border-bottom:1px solid var(--line); text-align:center;}
+  .page-hero h1{font-size:clamp(2rem,4.4vw,3.2rem); max-width:20ch; color:var(--ink); margin:0 auto; line-height:1.15;}
+  .page-hero p{color:var(--slate); margin:14px auto 0; max-width:62ch; font-size:17px;}
+  .page-hero + section{padding:36px 0 64px;}
+  section{padding:64px 0;}
+
+  /* Depth readout, reuses the .case-depths treatment from the cards */
+  .depth-row{display:flex; justify-content:center; gap:56px; flex-wrap:wrap; margin-top:30px;}
+  .depth-row .d{font-size:13px; font-weight:700; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; text-align:center;}
+  .depth-row .d b{display:block; font-family:'IBM Plex Mono',monospace; font-size:17px; margin-top:4px; font-weight:700; color:#B8860B;}
+  .tag-row{margin-top:26px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;}
+  .tag-row span{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--amber); border:1px solid rgba(198,132,31,0.35); padding:4px 10px;}
+
+  /* ---------- Article body ---------- */
+  .article{max-width:860px; margin:0 auto;}
+  .article h2{font-size:clamp(1.5rem,2.8vw,2rem); margin:56px 0 16px;}
+  .article h2:first-child{margin-top:0;}
+  .article p{color:var(--slate); font-size:16px; margin:0 0 16px;}
+  .article p b{color:var(--ink);}
+  p{text-align:justify; text-justify:inter-word; hyphens:auto;}
+
+  .finding{
+    border-left:3px solid var(--amber-fill);
+    background:var(--paper-alt);
+    padding:22px 26px; margin-bottom:8px;
+  }
+  .finding h4{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--coral); margin:0 0 8px;}
+  .finding p{margin:0; color:var(--ink); font-size:16.5px;}
+
+  .note{border:1px solid var(--line); padding:20px 24px; font-size:17.5px; line-height:1.65; color:var(--ink); background:var(--paper);}
+  .note b{color:#B8860B; font-weight:700; font-size:19.5px;}
+
+  .facts{border-top:1px solid var(--line);}
+  .facts div{display:grid; grid-template-columns:180px 1fr; gap:20px; padding:14px 0; border-bottom:1px solid var(--line);}
+  .facts dt{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--coral); font-weight:600; align-self:center;}
+  .facts dd{margin:0; color:var(--slate); font-size:15.5px;}
+  dl.facts{margin:0 0 20px;}
+  @media (max-width:640px){.facts div{grid-template-columns:1fr; gap:4px;}}
+
+  /* Descent steps, same rhythm as the framework lens list */
+  .lens{display:grid; grid-template-columns:150px 1fr; gap:32px; padding:34px 0; border-top:1px solid var(--line);}
+  .lens:last-of-type{border-bottom:1px solid var(--line);}
+  @media (max-width:700px){.lens{grid-template-columns:1fr; gap:12px;}}
+  .lens-depth{font-size:13px; color:var(--slate);}
+  .lens-depth .d{display:block; font-size:19px; color:var(--amber); margin-bottom:4px; font-family:'Fraunces',serif;}
+  .lens h3{font-size:1.25rem; margin-bottom:10px;}
+  .lens p{max-width:62ch;}
+  .lens p:last-child{margin-bottom:0;}
+  .lens .tag{
+    display:inline-block; margin-top:6px;
+    font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+    color:var(--coral); border:1px solid rgba(191,70,50,0.35); padding:5px 10px;
+  }
+
+  /* Tables */
+  .scroll{overflow-x:auto; border:1px solid var(--line);}
+  table{width:100%; border-collapse:collapse; font-size:14.5px; min-width:660px;}
+  th{background:var(--paper-alt); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--coral); text-align:left; padding:12px 16px; border-bottom:1px solid var(--line);}
+  td{padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--slate);}
+  tr:last-child td{border-bottom:0;}
+  td:first-child{color:var(--ink); font-weight:600; white-space:nowrap;}
+  td:first-child span{display:block; font-weight:400; color:var(--slate); font-size:13px;}
+  .grade{font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:500; letter-spacing:0.02em;}
+  .grade.bad{color:var(--coral);} .grade.ok{color:var(--green);}
+  .cap{font-size:13px; color:var(--slate); margin-top:10px;}
+
+  /* Matrix */
+  .matrix{display:grid; grid-template-columns:130px 1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); min-width:600px;}
+  .matrix > div{background:var(--paper); padding:18px; font-size:14.5px; color:var(--slate);}
+  .matrix .h{background:var(--paper-alt); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--coral); font-weight:600;}
+  .matrix .rh{background:var(--paper-alt); font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--coral); font-weight:600;}
+  .matrix b{display:block; font-family:'Fraunces',serif; font-size:1.05rem; color:var(--ink); margin-bottom:6px;}
+  .matrix .good{box-shadow:inset 0 3px 0 var(--amber-fill);}
+
+  /* Before / after */
+  .ba{display:grid; grid-template-columns:1fr 1fr; gap:28px;}
+  @media (max-width:760px){.ba{grid-template-columns:1fr;}}
+  .ba section{padding:28px; border:1px solid var(--line); border-top:3px solid var(--line); background:var(--paper);}
+  .ba .after{border-top-color:var(--amber-fill);}
+  .ba h3{font-size:1.15rem; margin-bottom:12px;}
+  .ba ul{margin:0; padding-left:20px; color:var(--slate); font-size:15px;}
+  .ba li{margin-bottom:8px;}
+
+  ol.rules{margin:0; padding-left:22px; color:var(--slate);}
+  ol.rules li{margin-bottom:12px; padding-left:4px;}
+  ol.rules b{color:var(--ink);}
+
+  /* Surfaced block */
+  .surfaced{background:var(--paper-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+
+  /* ---------- CTA / Contact band ---------- */
+  .cta{background:var(--paper-deep); text-align:center;}
+  .cta h2{font-size:clamp(1.7rem,3.4vw,2.4rem); max-width:22ch; margin:0 auto;}
+  .cta p{max-width:58ch; margin:18px auto 0; color:var(--slate); text-align:center;}
+  .hero-cta{margin-top:30px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:14px 24px;
+    font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+    text-decoration:none; border:1px solid var(--amber-fill); transition:all .2s;
+  }
+  .btn-solid{background:var(--amber-fill); color:#1B1206;}
+  .btn-solid:hover{background:transparent; color:var(--amber);}
+  .btn-ghost{color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--amber); color:var(--amber);}
+  .tagline{font-family:'Fraunces',serif; color:var(--amber); font-size:1.15rem; margin-top:34px;}
+
+  footer{
+    padding:32px 0; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  footer p{margin:0; font-size:12.5px; color:var(--slate); text-align:left;}
+  .footer-brand{display:flex; align-items:center; gap:10px;}
+  .footer-brand .brandmark{width:30px; height:30px;}
+
+  ::selection{background:var(--amber-fill); color:#1B1206;}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
+  @media (max-width:640px){p{text-align:left;}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;">
+        <img class="brandmark" src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+        <div class="brand-name">AIMMS <b>Consulting</b></div>
+      </a>
+    </div>
+    <ul>
+      <li><a href="index.html#framework">Framework</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#approach">Approach</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="case-studies.html" class="active">Case Studies</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="page-hero wrap">
+  <span class="eyebrow mono"><a href="case-studies.html">Case Studies</a> / Semantic BI &middot; Pre-Mortem &middot; Brand Differentiation</span>
+  <h1>The Claim That Couldn't Survive the Descent</h1>
+  <p>A national pharma launch, three headline claims, and what happened when each was graded before it reached the media.</p>
+
+  <div class="depth-row">
+    <div class="d">Entry depth<b>0 m &mdash; surface claim</b></div>
+    <div class="d">Surfaced at<b>Twilight zone</b></div>
+  </div>
+  <div class="tag-row">
+    <span>Semantic BI</span><span>Pre-Mortem</span><span>Brand Differentiation</span>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="article">
+
+      <div class="finding">
+        <h4>Finding</h4>
+        <p>Two of the three headline claims could not be proven wrong, so they could not be defended either. The positioning beneath them was language half the category already used. The campaign was rebuilt on the one differentiator the product could verify.</p>
+      </div>
+
+      <h2>Situation</h2>
+      <p>A regional pharmaceutical manufacturer had built a national launch campaign around three headline claims about efficacy and differentiation. The materials were due to go to media within weeks. Internal enthusiasm was high, and the claims had been repeated in enough meetings that they had started to feel like facts.</p>
+      <p>The brief to AIMMS was narrow: read the claims as a competitor, a journalist or a regulator would read them, and say which ones would hold.</p>
+
+      <dl class="facts">
+        <div><dt>Client</dt><dd>Regional pharmaceutical manufacturer, anonymised.</dd></div>
+        <div><dt>Decision at stake</dt><dd>Whether to take three headline claims into a national media launch.</dd></div>
+        <div><dt>Time available</dt><dd>A few weeks before media placement.</dd></div>
+        <div><dt>Lenses used</dt><dd>Semantic BI Analyst, Pre-Mortem Foresighted Intelligence Analyst, Strategic Brand Differentiation Specialist.</dd></div>
+      </dl>
+      <div class="note"><b>Anonymisation.</b> Client identity, product and claim wording are withheld. The analytical path is shown as it was run; claim descriptions are generalised for that reason.</div>
+
+      <h2>The descent</h2>
+      <p>The engine starts every engagement at the surface and works down. Each pass adds pressure and removes what does not hold. Here the claims entered at 0 m and were read through three lenses.</p>
+
+      <div class="lens">
+        <div class="lens-depth"><span class="d">First pass</span>Semantic BI</div>
+        <div>
+          <h3>Grade each claim on the surface</h3>
+          <p>Every headline claim was graded as Verified, Plausible-Unverified or Affect-Driven / Unfalsifiable. The test is simple: what evidence, if it appeared, would show the sentence to be wrong? Where no such evidence can be named, the claim carries feeling rather than information.</p>
+          <span class="tag">Two of three: Affect-Driven / Unfalsifiable</span>
+        </div>
+      </div>
+      <div class="lens">
+        <div class="lens-depth"><span class="d">Second pass</span>Pre-Mortem</div>
+        <div>
+          <h3>Run the launch forward to the challenge</h3>
+          <p>The pre-mortem assumed the campaign had already been publicly challenged and asked what a competitor or a journalist would say first. It mapped the questions in the order they would be asked, from "what is this based on?" to "why is this different from the other brands?"</p>
+          <span class="tag">The two ungraded claims drew the hardest questions first</span>
+        </div>
+      </div>
+      <div class="lens">
+        <div class="lens-depth"><span class="d">Third pass</span>Brand Differentiation</div>
+        <div>
+          <h3>Test whether the positioning is actually different</h3>
+          <p>The underlying positioning was generic "innovation-led" language. It could be printed unchanged by any competitor in the category, and half of them already did.</p>
+          <span class="tag">Legal to say, but it positioned nobody</span>
+        </div>
+      </div>
+
+      <h2>The claims, graded</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Claim</th><th>What would test it</th><th>Pre-Mortem exposure</th><th>AIMMS grade</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Headline claim 1<span>Efficacy framing</span></td>
+              <td>No measurable endpoint was stated, so no result could contradict it.</td>
+              <td>First question from any journalist: "compared with what?"</td>
+              <td class="grade bad">Affect-Driven / Unfalsifiable</td>
+            </tr>
+            <tr>
+              <td>Headline claim 2<span>Superiority framing</span></td>
+              <td>No comparator, population or measure that a rival could check.</td>
+              <td>A competitor can print the same sentence about its own product.</td>
+              <td class="grade bad">Affect-Driven / Unfalsifiable</td>
+            </tr>
+            <tr>
+              <td>Headline claim 3<span>Product attribute</span></td>
+              <td>A specific attribute that can be confirmed against the product file.</td>
+              <td>Held up under the questions put to it in the pre-mortem.</td>
+              <td class="grade ok">Verified</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cap">Grades are an AIMMS reading of the client's own launch materials, not a legal or regulatory finding.</p>
+
+      <h2>Why the positioning failed the test</h2>
+      <p>A claim can fail in two ways, and this campaign showed both. Two claims could not be tested. The positioning underneath them could be tested and was simply shared.</p>
+      <div class="scroll">
+        <div class="matrix" role="table" aria-label="Claim quality matrix">
+          <div class="h"></div><div class="h">Backed by evidence</div><div class="h">Not backed by evidence</div>
+          <div class="rh">Specific, testable</div>
+          <div class="good"><b>Defensible differentiation</b>The one verifiable attribute. The place to rebuild from.</div>
+          <div><b>Exposed</b>Not present in this launch, but where the two weak claims would drift once challenged.</div>
+          <div class="rh">Vague, untestable</div>
+          <div><b>True but shared</b>The "innovation-led" positioning. Accurate enough, owned by half the category.</div>
+          <div><b>Safe but empty</b>Both Affect-Driven claims. Hard to attack, impossible to defend as better.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="surfaced">
+  <div class="wrap">
+    <div class="article">
+      <span class="eyebrow mono">Surfaced with</span>
+      <h2 style="margin-top:0">A narrower claim set the product could stand behind</h2>
+      <p>The campaign went forward on the one verifiable differentiator the product actually had. The wording was specific enough to survive both legal review and public scrutiny.</p>
+      <div class="ba">
+        <section class="before">
+          <h3>Before the descent</h3>
+          <ul>
+            <li>Three headline claims, two with no way to be proven wrong.</li>
+            <li>Positioning any competitor could copy line for line.</li>
+            <li>No prepared answer to the first public challenge.</li>
+          </ul>
+        </section>
+        <section class="after">
+          <h3>After the descent</h3>
+          <ul>
+            <li>A smaller set of claims, each tied to something checkable.</li>
+            <li>Language built on the product's one verifiable difference.</li>
+            <li>Each sentence able to answer "what is this based on?"</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="article">
+      <h2>What to take from it</h2>
+      <ol class="rules">
+        <li><b>Fewer claims make a stronger campaign.</b> A claim you cannot defend weakens the ones you can.</li>
+        <li><b>Ask what would prove each sentence wrong.</b> If nothing could, rewrite it or retire it.</li>
+        <li><b>Do not replace a risky claim with a vaguer one.</b> Vague language is safer, but it is also empty.</li>
+        <li><b>Build the headline on the differentiator you can verify.</b> Then check that no competitor can print the same sentence.</li>
+        <li><b>Run the pre-mortem before media, not after.</b> Find the first question a journalist would ask while the answer is still cheap to fix.</li>
+      </ol>
+      <div class="note" style="margin-top:28px"><b>Scope.</b> Commercial analysis, not legal advice. Final claim wording should be cleared with qualified regulatory and legal counsel in each market.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Which of your claims would be challenged first?</h2>
+    <p>Send the draft launch messaging. The review starts with a line-by-line evidence grade, then a pre-mortem on the sentences that fail it.</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="index.html#contact">Start a conversation</a>
+      <a class="btn btn-ghost" href="case-studies.html">Back to case studies</a>
+    </div>
+    <div class="tagline">Let's Color The Daring Dreams Together.</div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="footer-brand">
+    <img class="brandmark" src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+    <p>&copy; 2026 AIMMS Consulting. Strategic Intelligence Engine.</p>
+  </div>
+  <p>Strategy · BD Growth · Semantic BI · Epistemic Rigor · Brand Differentiation · Cognitive Bias · Pre-Mortem · Market Research</p>
+</footer>
+
+</body>
+</html>
