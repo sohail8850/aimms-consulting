@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Six-Launch Autopsy | AIMMS Consulting</title>
+<style>
+:root{--navy:#0A1F44;--blue:#0A3D91;--gold:#C9A227;--ink:#1d2430;--mute:#5b6677;--line:#e3e7ee;--bg:#fff;--soft:#f5f7fb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:var(--bg);line-height:1.7;font-size:17px}
+header{background:#fff;border-bottom:1px solid var(--line);padding:18px 24px 14px}
+.hw{max-width:1040px;margin:auto}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{flex:none}
+.wm{font-family:Georgia,serif;font-weight:700;font-size:30px;line-height:1.1;color:var(--navy)}
+.wm span{color:#C58B1B}
+.tag{display:block;font-style:italic;font-weight:700;font-size:15px;color:#C58B1B;margin-top:3px}
+nav{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 26px}
+nav a{font-family:'Courier New',monospace;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555;text-decoration:none}
+nav a.active{color:#C58B1B}
+.hero{background:var(--navy);color:#fff;padding:36px 24px 44px}
+.hero div.hw{max-width:1040px}
+.crumb{font-family:Arial,sans-serif;font-size:15px;font-weight:700;margin-bottom:30px}
+.crumb a{color:#E0A526}
+.crumb span{color:#E0A526}
+.hero h1{font-size:clamp(34px,6vw,58px);line-height:1.12;margin:0 0 20px;font-weight:800;max-width:760px}
+.sub{font-size:clamp(20px,3vw,27px);line-height:1.5;font-weight:700;color:#cfe0f7;max-width:640px;margin:0 0 26px}
+.pill{display:inline-block;font-family:'Courier New',monospace;font-size:14px;font-weight:700;border:1px solid #3b5278;color:#F2B83A;border-radius:22px;padding:6px 16px;margin:0 10px 8px 0}
+.finding{border-left:5px solid #E0A526;padding:4px 0 4px 22px;margin-top:34px;max-width:760px}
+.finding b{display:block;font-family:Georgia,serif;color:#E0A526;font-size:15px;margin-bottom:4px}
+.finding p{margin:0;color:#dbe5f5;text-align:left}
+main{max-width:900px;margin:auto;padding:12px 24px 40px}
+h2{color:var(--navy);font-size:26px;margin:40px 0 8px;border-bottom:2px solid var(--gold);padding-bottom:6px}
+h3{color:var(--blue);margin:22px 0 4px;font-size:19px}
+p{text-align:justify;margin:10px 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:26px 0}
+.facts div{background:var(--soft);border-left:4px solid var(--blue);padding:10px 14px;font-family:Arial,sans-serif;font-size:14px}
+.facts b{display:block;font-size:12px;color:var(--mute);font-weight:600;margin-bottom:2px}
+table{width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;margin:14px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:9px 10px;font-weight:600}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.scroll{overflow-x:auto}
+.dec{border:1px solid var(--line);border-left:5px solid var(--blue);padding:4px 18px 10px;margin:16px 0;background:#fff}
+.dec h3{margin-top:12px}
+.dec p{margin:6px 0;font-size:16px}
+.dec b{color:var(--navy)}
+.warn{background:#fff8e1;border-left:4px solid var(--gold);padding:10px 16px;font-family:Arial,sans-serif;font-size:14px;margin:16px 0}
+.outcome{border:2px solid var(--gold);padding:18px 22px;margin:34px 0;background:#fffdf5}
+.outcome b{color:var(--navy)}
+ol.q li{margin:8px 0}
+footer{background:var(--navy);color:#b9c6dc;font-family:Arial,sans-serif;font-size:13px;text-align:center;padding:22px}
+@media(max-width:640px){.wm{font-size:24px}nav a{font-size:12px}p{text-align:left}}
+</style>
+</head>
+<body>
+<header><div class="hw">
+<a class="brand" href="index.html"><img src="data:image/jpeg;base64,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" alt="AIMMS Consulting logo" width="64" height="64" style="display:block"><div><div class="wm">AIMMS <span>Consulting</span></div><span class="tag">Let&rsquo;s Color The Daring Dreams Together</span></div></a>
+<nav><a href="index.html#framework">Framework</a><a href="index.html#services">Services</a><a href="index.html#approach">Approach</a><a href="index.html#certifications">Certifications</a><a href="projects.html">Projects</a><a class="active" href="case-studies.html">Case Studies</a><a href="blog.html">Blog</a><a href="index.html#contact">Contact</a></nav>
+</div></header>
+
+<section class="hero"><div class="hw">
+<div class="crumb"><a href="case-studies.html">Case Studies</a> <span>/ The Six-Launch Autopsy</span></div>
+<h1>The Six-Launch Autopsy</h1>
+<p class="sub">A strategic-decisions case study for a stalled pharma launch portfolio</p>
+<span class="pill">Portfolio Strategy</span><span class="pill">Pre-Mortem</span>
+<div class="finding"><b>Finding</b><p>A mid-size Pakistani pharma company launched six brands in 2025. By the November survey, none had earned its place. The question was not how to push harder but which brands deserve the next rupee, and which decisions come first.</p></div>
+</div></section>
+
+<main>
+<div class="facts">
+<div><b>Category</b>Portfolio Strategy, Post-Launch Review</div>
+<div><b>Market</b>Pakistan, branded generics</div>
+<div><b>Entry depth</b>0 m, the launch itself</div>
+<div><b>Surfaced at</b>Twilight zone: a sequenced, gated plan</div>
+</div>
+
+<h2>The Situation</h2>
+<p>Six brands entered the market in 2025: a beta-blocker (nebivolol), a prokinetic (levosulpiride), a carbapenem (meropenem), a neuro-pain brand (pregabalin), an ossein-mineral bone supplement with vitamin D3, and a metformin-based SGLT2/DPP-4 diabetes combination. The November 2025 market survey showed all six below expectation.</p>
+<p>The wider market explains part of it. As quoted in the source brief, national pharma value grew about 20.6% in 2025 while unit growth was about 3.6%. Growth came from price increases, not from more patients treated. A new brand cannot ride that tide. It has to take units from an incumbent, one prescriber at a time.</p>
+<div class="warn">Market size and growth figures are quoted from the source brief and were not independently verified. Treat them as scenario inputs.</div>
+
+<h2>Portfolio Analysis</h2>
+<div class="scroll"><table>
+<tr><th>Brand type</th><th>Core prescriber</th><th>Main obstacle</th><th>Obstacle kind</th></tr>
+<tr><td>Nebivolol beta-blocker</td><td>Cardiologists, diabetologists</td><td>Crowded class, entrenched leaders</td><td>Competition</td></tr>
+<tr><td>Levosulpiride prokinetic</td><td>GPs, gastroenterologists</td><td>Seen as a me-too molecule</td><td>Differentiation</td></tr>
+<tr><td>Meropenem</td><td>ICU, hospital pharmacy</td><td>Unit decline, institutional price pressure</td><td>Access</td></tr>
+<tr><td>Pregabalin</td><td>Neurologists, orthopaedists</td><td>Abuse concerns, regulatory attention</td><td>Regulatory risk</td></tr>
+<tr><td>Ossein + D3 bone brand</td><td>Gynaecologists, orthopaedists</td><td>Established category leaders</td><td>Competition</td></tr>
+<tr><td>SGLT2/DPP-4 + metformin XR</td><td>Diabetologists</td><td>High cost per month, early generics</td><td>Affordability</td></tr>
+</table></div>
+<p>The six problems are not the same problem. Treating them with one "clinical advocacy" programme and one 15% target hides that. The first strategic decision was to separate them.</p>
+
+<h2>Precedent: When Success Invites Copies</h2>
+<p>The company's own history carries a warning. In the 2005 to 2007 period, one high-value brand grew from roughly 9,000 to 40,000 packs a month. By 2007, more than 14 me-too brands from other companies had been registered in Pakistan. In this market, visible success is the signal that triggers copying. A brand that proves a niche without a defence will be crowded out within two years.</p>
+<p>That lesson shapes every decision below: build position where copying is slow (institutions, indication-specific evidence, prescriber relationships), not where it is quick (price, packaging, generic claims).</p>
+
+<h2>The Strategic Decisions</h2>
+<div class="dec"><h3>Decision 1: Sequence the portfolio, do not blitz it</h3>
+<p><b>Choice.</b> Fund two lead brands, repair two, defend one, and hold one.</p>
+<p><b>Why.</b> A single field force cannot deliver six new positionings to the same 500 consultants in one quarter. Call frequency per brand falls, and every message is forgotten.</p>
+<p><b>Trade-off.</b> Four brands wait. Their short-term numbers may slip further.</p>
+<p><b>Gate.</b> Review at day 90. A brand moves up a tier only on prescription evidence, not on field activity.</p></div>
+
+<div class="dec"><h3>Decision 2: Lead with the diabetes combination in a narrow patient segment</h3>
+<p><b>Choice.</b> Position it for patients already failing dual therapy and at high cardiovascular or renal risk, not for all type 2 diabetes.</p>
+<p><b>Why.</b> The strongest clinical story sits where the premium is easiest to justify. A broad price-led push would meet cheaper generics head on.</p>
+<p><b>Trade-off.</b> A smaller patient pool, accepted for better margin and a clearer message.</p>
+<p><b>Gate.</b> Repeat-prescription rate among targeted diabetologists at 60 days.</p></div>
+
+<div class="dec"><h3>Decision 3: Take meropenem to institutions, with a stewardship stance</h3>
+<p><b>Choice.</b> Drop retail promotion. Work through hospital pharmacy committees with batch quality and stability documentation.</p>
+<p><b>Why.</b> The buying decision sits with committees, not individual prescribers. Documented quality is the one lever a cheaper unbranded generic cannot copy quickly.</p>
+<p><b>Trade-off.</b> Slow cycles. Formulary wins take quarters, not weeks.</p>
+<p><b>Gate.</b> Number of formulary submissions accepted, tracked per institution.</p></div>
+
+<div class="dec"><h3>Decision 4: Hold pregabalin promotion and reduce regulatory exposure</h3>
+<p><b>Choice.</b> Limit it to documented neuropathic indications, with no volume targets on the brand.</p>
+<p><b>Why.</b> Misuse concerns make aggressive promotion a regulatory and reputational liability. A volume incentive on this brand is the wrong incentive.</p>
+<p><b>Trade-off.</b> Revenue forgone in exchange for licence safety.</p>
+<p><b>Gate.</b> Compliance review each quarter. Reopen only if the regulatory picture clears.</p></div>
+
+<div class="dec"><h3>Decision 5: Repair the bone brand through gynaecology, and the prokinetic through evidence</h3>
+<p><b>Choice.</b> Concentrate the bone brand on gynaecologists and post-menopausal patients. For the prokinetic, build a small local case series before any "brain-gut" claim goes into the field.</p>
+<p><b>Why.</b> Both brands depend on claims their incumbents can answer easily. Local evidence is slower to copy than a tagline.</p>
+<p><b>Trade-off.</b> Delay of one to two quarters while evidence is gathered.</p>
+<p><b>Gate.</b> Claim sign-off by medical affairs before field use.</p></div>
+
+<div class="dec"><h3>Decision 6: Defend the beta-blocker, do not expand it</h3>
+<p><b>Choice.</b> Keep existing prescribers served. Make no new investment until the leads show results.</p>
+<p><b>Why.</b> A crowded class rewards incumbents. Spending here starves the two brands with a real chance.</p>
+<p><b>Trade-off.</b> The brand may plateau.</p>
+<p><b>Gate.</b> Revisit at day 90 with the lead brands' results in hand.</p></div>
+
+<h2>The Autopsy: What the First Plan Got Wrong</h2>
+<p>The original recovery plan was energetic and complete. It was also uniform. The findings:</p>
+<ol>
+<li><b>One target for six problems.</b> A flat 15% unit-share goal ignores that a restricted brand, an institutional brand and a premium brand have different ceilings.</li>
+<li><b>Projections presented as evidence.</b> The recovery chart showed target indices of 115 to 125 against a baseline of 100. These were aspirations, not forecasts. Shown to a managing director as a trajectory, they set up a miss.</li>
+<li><b>Claims ahead of proof.</b> Statements such as "faster onset", "proven stability", and "significantly more effective than calcium carbonate" need local or published support before a representative says them to a consultant.</li>
+<li><b>Six simultaneous pivots.</b> Retraining, a consultant blitz, a pharmacy loyalty scheme, free diagnostic services and a digital portal in one quarter exceeds execution capacity.</li>
+<li><b>Safety treated as marketing.</b> Pregabalin was framed as a growth opportunity when its main task is risk containment. A comparable lesson sits in the history of domperidone, where cardiac-safety concerns led to restricted use.</li>
+</ol>
+<div class="warn">Product composition for the diabetes combination was inconsistent in the source material (described both generally as SGLT2/DPP-4 and as a specific triple). Confirm the registered formulation before any claim is made.</div>
+
+<h2>Ninety-Day Decision Path</h2>
+<div class="scroll"><table>
+<tr><th>Window</th><th>Action</th><th>Decision gate</th></tr>
+<tr><td>Days 1 to 30</td><td>Lock the two lead brands. Claim review by medical affairs. Set brand-specific targets.</td><td>Targets signed by commercial and medical heads</td></tr>
+<tr><td>Days 31 to 60</td><td>Focused consultant coverage for lead brands. Meropenem institutional submissions begin.</td><td>Call frequency met. Early repeat prescriptions visible</td></tr>
+<tr><td>Days 61 to 90</td><td>Review secondary sales and prescription audit data by brand.</td><td>Promote, repair, hold or exit for each brand</td></tr>
+</table></div>
+
+<h2>Discussion Questions</h2>
+<ol class="q">
+<li>Which two brands would you fund first, and what evidence would change your mind?</li>
+<li>Is a brand with regulatory risk worth any promotional spend, and under what conditions?</li>
+<li>How should a company set targets when the market grows by price, not volume?</li>
+<li>What makes a position hard to copy in a market where 14 look-alikes can appear in a year?</li>
+</ol>
+
+<div class="outcome"><b>Outcome:</b> A portfolio decision that fits the field force's real capacity: two lead brands funded, two repaired, one defended and one held, with a day-90 gate where every brand has to earn its next tier of investment through prescription evidence rather than activity.</div>
+
+<p style="font-size:14px;color:var(--mute)">Source note: this case is built from a scenario brief and an AI-assisted working session. Company and brand names are withheld. Market figures and the projection chart are scenario inputs, not audited data.</p>
+</main>
+<footer>&copy; AIMMS Consulting &middot; Lahore, Pakistan</footer>
+</body>
+</html>
