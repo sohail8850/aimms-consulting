@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Market Depth Before Committing Capital | AIMMS Consulting</title>
+<meta name="description" content="A case study in reading beneath category-level growth figures before entering a new therapeutic category, and entering through a narrower, less-contested indication first.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1F44;
+  --navy-2:#13306B;
+  --amber:#F0A500;
+  --coral:#FF6F59;
+  --verified:#1F7A5C;
+  --paper:#F6F8FC;
+  --white:#FFFFFF;
+  --text:#1B2A4A;
+  --muted:#5A6882;
+  --line:#D9E0EC;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Liberation Sans',Arial,Helvetica,sans-serif;
+  --mono:'IBM Plex Mono',Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--sans);color:var(--text);background:var(--paper);line-height:1.65;font-size:17px}
+a{color:var(--navy-2)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* header: matched to nutraceutical-reformulation-case-study.html, nav in bold */
+header.site{background:#fff;border-bottom:1px solid #E6E1D4}
+header.site .wrap{display:block;padding-top:16px;padding-bottom:14px}
+.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:54px;width:auto;background:none;border-radius:0;display:block}
+.brand .name{display:block;font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.1;color:var(--navy)}
+.brand .name span{color:#C98A1B}
+.brand .tagline{display:block;font-family:var(--serif);font-style:italic;font-weight:600;font-size:14px;color:#C98A1B;margin-top:2px}
+nav ul{list-style:none;margin:14px 0 0;padding:0;display:flex;gap:26px;flex-wrap:wrap}
+nav a{font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:14px;color:#5A6882;text-decoration:none}
+nav a:hover,nav a.active{color:#C98A1B}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
+.crumb{font-size:15px;color:#C98A1B;margin:0 0 22px;font-weight:600}
+.crumb a{color:#C98A1B}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,5.2vw,56px);line-height:1.08;margin:0 0 14px;max-width:20ch}
+.hero .sub{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,24px);color:#DCE5F7;margin:0 0 26px;max-width:40ch}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 34px}
+.tag{font-family:var(--mono);font-size:13px;padding:5px 12px;border:1px solid #3A5694;border-radius:999px;color:#FFD470;font-weight:500}
+.outcome{border-left:5px solid var(--amber);padding:6px 0 6px 20px;max-width:62ch}
+.outcome b{display:block;font-family:var(--serif);font-size:17px;color:#FFD470;font-weight:700;margin-bottom:4px}
+.outcome p{margin:0;font-family:var(--serif);font-size:clamp(20px,2.6vw,26px);line-height:1.35}
+
+/* depth readout in hero */
+.depths{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 34px}
+.depths .d{font-family:var(--mono);font-size:13px;color:#DCE5F7;border:1px solid #3A5694;border-radius:6px;padding:8px 14px;background:#0E2A5C}
+.depths .d b{color:#FFD470;font-weight:700}
+
+/* sections */
+section{padding:60px 0 8px}
+h2{font-family:var(--serif);font-size:clamp(26px,3.4vw,36px);line-height:1.15;color:var(--navy);margin:0 0 14px}
+h3{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--navy);margin:0 0 8px}
+.lead{font-size:19px;max-width:66ch;color:var(--text)}
+p{max-width:68ch}
+.note{background:#FFF6DC;border:1px solid #F2D58A;border-left:5px solid var(--amber);padding:16px 20px;border-radius:6px;max-width:74ch;font-size:16px;margin:22px 0}
+
+/* descent gauge */
+.gauge{margin:30px 0 0;max-width:900px;background:var(--navy);border-radius:10px;padding:28px 28px 30px;color:#fff}
+.gauge h3{color:var(--amber);margin-bottom:18px}
+.gauge .shaft{position:relative;height:300px;border-left:3px solid #3A5694;margin-left:10px}
+.gauge .mark{position:absolute;left:-10px;display:flex;align-items:flex-start;gap:16px;width:100%}
+.gauge .dot{flex:0 0 17px;height:17px;border-radius:50%;background:var(--amber);border:3px solid var(--navy);margin-top:3px}
+.gauge .dot.low{background:var(--coral)}
+.gauge .dot.ok{background:#4FC79A}
+.gauge .lbl{font-family:var(--mono);font-size:13px;color:#FFD470;font-weight:700}
+.gauge .txt{margin:2px 0 0;font-family:var(--serif);font-size:18px;line-height:1.35;color:#fff;max-width:60ch}
+.gauge .m1{top:0}
+.gauge .m2{top:96px}
+.gauge .m3{top:196px}
+.gauge .cap{font-size:14px;color:#B9C7E6;margin:18px 0 0;max-width:none}
+
+/* three-situation grid */
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:26px}
+.panel{background:var(--white);border:1px solid var(--line);border-top:5px solid var(--navy);padding:20px 22px;border-radius:6px}
+.panel p{margin:0;font-size:16px}
+.panel .k{display:block;font-family:var(--mono);font-size:12.5px;font-weight:700;color:#C98A1B;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+
+/* the layer ledger */
+.ledger{margin-top:28px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--white)}
+.ledger-scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:820px}
+th,td{text-align:left;vertical-align:top;padding:16px 18px;border-bottom:1px solid var(--line);font-size:15.5px}
+th{background:var(--navy);color:#fff;font-family:var(--serif);font-weight:700;font-size:15px}
+tr:last-child td{border-bottom:none}
+td.layer{font-family:var(--serif);font-size:17px;color:var(--navy);width:24%;font-weight:700}
+td.found{background:#FFF0ED;width:34%}
+.ledger-cap{font-size:14px;color:var(--muted);padding:12px 18px;border-top:1px solid var(--line);margin:0;max-width:none}
+
+/* entry comparison matrix */
+.matrix{display:grid;grid-template-columns:150px 1fr 1fr;gap:12px;margin-top:26px;max-width:900px}
+.ax{font-family:var(--serif);font-weight:700;color:var(--navy);align-self:center;font-size:15px}
+.cell{border-radius:8px;padding:18px 20px;border:1px solid var(--line);background:var(--white)}
+.cell b{display:block;font-family:var(--serif);font-size:19px;color:var(--navy);margin-bottom:6px}
+.cell p{margin:0;font-size:15.5px}
+.cell.bad{background:#FFF0ED;border-top:5px solid var(--coral)}
+.cell.ok{background:#EAF5F0;border-top:5px solid var(--verified)}
+
+/* sequence */
+.timeline{list-style:none;margin:28px 0 0;padding:0;border-left:3px solid var(--navy);max-width:78ch}
+.timeline li{position:relative;padding:0 0 26px 26px}
+.timeline li::before{content:"";position:absolute;left:-10px;top:6px;width:17px;height:17px;border-radius:50%;background:var(--amber);border:3px solid var(--paper)}
+.timeline .when{font-family:var(--mono);font-size:14px;color:var(--navy-2);font-weight:700}
+.timeline .what{margin:2px 0 0}
+
+.checks{max-width:820px;padding-left:22px}
+.checks li{margin-bottom:10px}
+
+.cta{margin:56px 0 0;background:var(--navy);color:#fff;padding:44px 0}
+.cta h2{color:#fff}
+.cta p{color:#DCE5F7}
+.btn{display:inline-block;background:var(--amber);color:#2A1D00;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:6px}
+.btn:hover{background:#FFC240}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #5B77B5;margin-left:10px}
+footer{background:#071634;color:#9FB0D3;font-size:14px;padding:22px 0;text-align:center}
+
+/* one shared text column so justified edges line up on both sides */
+section p,section .lead,.cta p,.note,.checks{max-width:820px}
+/* justified body text across the page */
+main .outcome p,main .lead,main section p,main .timeline .what,.panel p,main .note,main .checks li,main td,main .cta p,main .ledger-cap{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+main .cell p,main .gauge .txt,main .gauge .cap{text-align:left;hyphens:none;-webkit-hyphens:none}
+.crumb{text-align:left;hyphens:none}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .hero{padding:40px 0 48px}
+  .btn.ghost{margin:12px 0 0}
+  .matrix{grid-template-columns:1fr}
+  .ax:empty{display:none}
+  .gauge .shaft{height:420px}
+  .gauge .m2{top:140px}
+  .gauge .m3{top:290px}
+}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
+      <span>
+        <span class="name">AIMMS <span>Consulting</span></span>
+        <span class="tagline">Let&rsquo;s Color The Daring Dreams Together</span>
+      </span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html#framework">Framework</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#approach">Approach</a></li>
+        <li><a href="certifications.html">Certifications</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a class="active" href="case-studies.html">Case Studies</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <div class="wrap">
+    <p class="crumb"><a href="case-studies.html">Case Studies</a> / Reading Market Depth Before Committing Capital</p>
+    <h1>Reading Market Depth Before Committing Capital</h1>
+    <p class="sub">A category-entry case study: what sat beneath the growth headline</p>
+    <div class="depths">
+      <div class="d">Entry depth: <b>&minus;1,200 m</b> (category assumption)</div>
+      <div class="d">Surfaced at: <b>Challenger Deep</b></div>
+    </div>
+    <div class="tags"><span class="tag">Market Research</span><span class="tag">Semantic BI</span><span class="tag">Strategic Advisory</span></div>
+    <div class="outcome">
+      <b>Finding</b>
+      <p>Category growth was real, but it lived in one crowded sub-indication. The safer route in was a narrower, less-contested indication first, then the wider category.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <h2>Situation</h2>
+  <p class="lead">A commercial team was preparing to enter a new therapeutic category. The internal business case rested mainly on category-level growth figures, the kind of number that looks the same from the surface whichever part of the market produced it.</p>
+  <div class="note"><strong>Anonymised engagement.</strong> Client details are withheld and the case is described at the level of method and decision, not company data. The point is the way of reading a market, which applies to any category-entry decision.</div>
+</section>
+
+<section>
+  <h2>The descent</h2>
+  <p class="lead">A trench-level pass went below the category headline. It used three layers of evidence and asked one question of each: where is the growth actually coming from, and who is already there?</p>
+  <div class="gauge" role="img" aria-label="Depth gauge showing three stages of the descent, from the category assumption at the surface to the concentrated sub-indication at the deepest point">
+    <h3>Three depths, one question</h3>
+    <div class="shaft">
+      <div class="mark m1"><span class="dot"></span><div><span class="lbl">&minus;1,200 m &middot; CATEGORY ASSUMPTION</span><p class="txt">The business case: category-level growth, read as an average that applies everywhere in the category.</p></div></div>
+      <div class="mark m2"><span class="dot low"></span><div><span class="lbl">MID-DESCENT &middot; THREE LAYERS READ</span><p class="txt">IQVIA MAT data, prescriber concentration by tier, and channel margin structure, read together.</p></div></div>
+      <div class="mark m3"><span class="dot ok"></span><div><span class="lbl">CHALLENGER DEEP &middot; SURFACED</span><p class="txt">Growth sat in a single sub-indication that most competitors were already crowding.</p></div></div>
+    </div>
+    <p class="cap">Illustrative gauge. Depth labels are the AIMMS convention for how far below the headline a reading goes.</p>
+  </div>
+</section>
+
+<section>
+  <h2>What each layer was asked</h2>
+  <p class="lead">No single layer would have changed the decision on its own. The concentration only became visible when the three were laid side by side.</p>
+  <div class="ledger">
+    <div class="ledger-scroll">
+    <table>
+      <thead><tr><th scope="col">Layer</th><th scope="col">Question asked</th><th scope="col">What it showed</th></tr></thead>
+      <tbody>
+        <tr><td class="layer">IQVIA MAT data</td><td>Split the moving annual total by sub-indication. Which segments produce the category's growth, and which are flat?</td><td class="found">Category growth was concentrated in one sub-indication, not spread across the category.</td></tr>
+        <tr><td class="layer">Prescriber concentration by tier</td><td>Which prescriber tiers drive volume in that sub-indication, and how many competitor teams already call on them?</td><td class="found">The high-value prescriber tiers were already heavily contested by established competitors.</td></tr>
+        <tr><td class="layer">Channel margin structure</td><td>What does each channel keep, and does the margin hold for a new entrant at the volumes needed?</td><td class="found">Entering the crowded segment head-on meant competing for the same prescribers and channel terms as incumbents.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="ledger-cap">Findings are stated qualitatively because the engagement is anonymised. In a live engagement each row carries its own figures and sources.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Two ways to enter</h2>
+  <p class="lead">The category headline invited a full-category entry. The layered reading pointed to a different first move.</p>
+  <div class="matrix" role="group" aria-label="Entry routes compared">
+    <div class="ax"></div><div class="ax">Follow the headline</div><div class="ax">Follow the depth reading</div>
+    <div class="ax">First move</div>
+    <div class="cell bad"><b>Full-category entry</b><p>Commit to the whole category, including the crowded sub-indication where the growth is concentrated.</p></div>
+    <div class="cell ok"><b>Narrower indication first</b><p>Enter through a less-contested indication where a new entrant can be heard.</p></div>
+    <div class="ax">What it buys</div>
+    <div class="cell bad"><b>Scale on paper</b><p>A large addressable number, but a share that has to be won from entrenched competitors.</p></div>
+    <div class="cell ok"><b>Volume and trust</b><p>Early volume and prescriber trust, built before the wider push.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Surfaced with</h2>
+  <p class="lead">A recommendation to enter through a narrower, less-contested indication first, building volume and prescriber trust before a full-category push.</p>
+  <ol class="timeline">
+    <li><div class="when">PHASE 1</div><p class="what">Enter through the narrower indication. Build volume, prescriber relationships and field credibility where competitors are fewer.</p></li>
+    <li><div class="when">PHASE 2</div><p class="what">Use that base as evidence. Prescriber trust and real-world volume make the wider case to the same and adjacent prescriber tiers.</p></li>
+    <li><div class="when">PHASE 3</div><p class="what">Decide on the full-category push from observed results, not from the opening growth headline.</p></li>
+  </ol>
+</section>
+
+<section>
+  <h2>What a category-entry team should take from it</h2>
+  <ol class="checks">
+    <li>Treat category-level growth as a starting question, not a business case. Split it by sub-indication before it carries any weight.</li>
+    <li>Ask where the growth is concentrated and how many competitors are already calling on the prescribers who generate it.</li>
+    <li>Read market data, prescriber tiers and channel margins together. Each alone can mislead.</li>
+    <li>Prefer a first indication where a new entrant can be heard, and let early results fund the larger decision.</li>
+    <li>Set the review point in advance: what must be true after phase 1 before phase 2 is released?</li>
+  </ol>
+  <div class="note"><strong>Scope.</strong> Commercial analysis based on the data layers described. Validate figures against your own licensed data and confirm regulatory and promotional constraints with qualified counsel in each market.</div>
+</section>
+</div>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>What is hiding beneath your category headline?</h2>
+    <p>Share the entry business case. The review starts by splitting the growth number layer by layer.</p>
+    <a class="btn" href="index.html#contact">Start a conversation</a>
+    <a class="btn ghost" href="case-studies.html">Back to all case studies</a>
+  </div>
+</div>
+</main>
+<footer><div class="wrap">&copy; 2026 AIMMS Consulting. Let's Color The Daring Dreams Together.</div></footer>
+
+</body>
+</html>
