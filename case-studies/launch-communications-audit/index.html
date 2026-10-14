@@ -35,62 +35,13 @@
             line-height: 1.6;
         }
 
-        header {
-            background-color: var(--royal-blue);
-            color: var(--white);
-            padding: 2rem 1rem;
-            border-bottom: 4px solid var(--gold);
-        }
 
-        .header-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-        }
 
-        .brand-info {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-        }
 
-        .brand-info img {
-            max-height: 70px;
-            width: auto;
-        }
 
-        .brand-text h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
 
-        .brand-text p {
-            color: var(--gold);
-            font-style: italic;
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
 
-        .tag-container {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
 
-        .badge {
-            background-color: rgba(255, 255, 255, 0.15);
-            color: var(--white);
-            padding: 0.35rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(201, 162, 39, 0.4);
-        }
 
         main {
             max-width: 1100px;
@@ -218,29 +169,52 @@
             font-size: 0.9rem;
             opacity: 0.9;
         }
-    </style>
+    
+/* ===== AIMMS SITE HEADER (matches project pages) ===== */
+.sh{background:#fff;border-bottom:1px solid #e6e2d3;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;font-size:16px;word-spacing:normal}
+.sh *{box-sizing:border-box}
+.sh-wrap{max-width:1000px;margin:0 auto;padding:16px 24px 0}
+.sh-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.sh-brand img{height:54px;width:auto;max-height:none}
+.sh-name{display:block;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.55rem;color:#0A1F44;line-height:1.1}
+.sh-name span{color:#C8922A}
+.sh-tag{display:block;font-style:italic;font-weight:700;font-size:.82rem;color:#C8922A;margin-top:2px}
+.sh-nav{display:flex;flex-wrap:wrap;gap:6px 26px;list-style:none;margin:0;padding:14px 0 12px}
+.sh-nav li{margin:0;padding:0}
+.sh-nav a{text-decoration:none;color:#4a5670;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.sh-nav a:hover,.sh-nav a[aria-current="page"]{color:#C8922A}
+.sh-crumbs{box-sizing:border-box;max-width:1000px;margin:0 auto;padding:22px 24px 0;font-size:.95rem;color:#5a6578;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;word-spacing:normal}
+.sh-crumbs a{color:#C8922A;text-decoration:none}
+.sh-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.sh-tags span{border:1px solid #C9A227;color:#9a7a14;padding:3px 12px;border-radius:99px;font-size:.85rem;font-weight:700}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="brand-info">
-                <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="Aimms Consulting Logo">
-                <div class="brand-text">
-                    <h1>Aimms Consulting</h1>
-                    <p>Let’s Color The Daring Dreams Together</p>
-                </div>
-            </div>
-            <div class="tag-container">
-                <span class="badge">Semantic BI</span>
-                <span class="badge">Brand Differentiation</span>
-                <span class="badge">Risk Mitigation</span>
-            </div>
-        </div>
-    </header>
+<header class="sh">
+  <div class="sh-wrap">
+    <a class="sh-brand" href="../../index.html">
+      <img src="../../AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo" onerror="this.onerror=null;this.src='https://sohail8850.github.io/aimms-consulting/AIMMS_AC_Logo_Transparent-1.jpg'">
+      <span><span class="sh-name">AIMMS <span>Consulting</span></span><span class="sh-tag">Let's Color The Daring Dreams Together</span></span>
+    </a>
+    <nav aria-label="Main"><ul class="sh-nav">
+      <li><a href="../../index.html#framework">Framework</a></li>
+      <li><a href="../../index.html#services">Services</a></li>
+      <li><a href="../../index.html#approach">Approach</a></li>
+      <li><a href="../../certifications.html">Certifications</a></li>
+      <li><a href="../../projects.html">Projects</a></li>
+      <li><a href="../../case-studies.html" aria-current="page">Case Studies</a></li>
+      <li><a href="../../blog.html">Blog</a></li>
+      <li><a href="../../index.html#contact">Contact</a></li>
+    </ul></nav>
+  </div>
+</header>
+<div class="sh-crumbs"><a href="../../case-studies.html">Case Studies</a> / Launch Communications Audit</div>
 
     <main>
         <section class="hero-section">
+            <div class="sh-tags"><span>Semantic BI</span><span>Brand Differentiation</span><span>Risk Mitigation</span></div>
             <h2>Launch Communications Audit: Verifying National Campaign Messaging</h2>
             <p>
                 A national product launch campaign was graded line by line prior to its media rollout. Initial analysis revealed that the majority of headline claims tested as <strong>Affect-Driven</strong> or <strong>Plausible-Unverified</strong> rather than empirical <strong>Verified</strong> statements. Through Semantic Business Intelligence (Semantic BI), messaging was systematically rebuilt into falsifiable, defensible language, surviving rigorous internal legal review and external market scrutiny.
