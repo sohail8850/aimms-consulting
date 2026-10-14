@@ -22,21 +22,8 @@
   img{max-width:100%;display:block;}
   .wrap{width:min(1010px,calc(100% - 40px));margin:0 auto;}
 
-  /* Header: stacked brand + nav, same as Field Force page */
-  header{background:var(--paper);border-bottom:1px solid var(--line);padding:14px 0 16px;}
-  .brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:inherit;}
-  .brand img{width:56px;height:56px;object-fit:contain;flex-shrink:0;}
-  .brand-name{font-family:'Fraunces',serif;font-weight:700;font-size:28px;line-height:1.1;color:var(--navy);}
-  .brand-name b{color:var(--amber);font-weight:700;}
-  .brand-tag{display:block;font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:15px;color:var(--amber);margin-top:2px;}
-  nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;margin:14px 0 0;padding:0;}
-  nav a{font-family:'IBM Plex Mono',monospace;font-size:14px;text-transform:uppercase;letter-spacing:0.06em;color:var(--slate);text-decoration:none;transition:color .2s;}
-  nav a:hover,nav a.active{color:var(--amber);}
-
   /* Hero: dark navy, left aligned */
   .hero{background:var(--navy);color:#fff;padding:56px 0 60px;}
-  .crumb{font-size:16px;font-weight:600;color:var(--amber-fill);margin-bottom:22px;}
-  .crumb a{color:var(--amber-fill);}
   .hero h1{color:#fff;font-weight:700;font-size:clamp(2.3rem,5.4vw,4rem);line-height:1.1;max-width:20ch;}
   .hero .sub{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.5rem);color:#CFE0FA;margin:26px 0 0;}
   .pills{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap;}
@@ -85,32 +72,49 @@
   ::selection{background:var(--amber-fill);color:#1B1206;}
   :focus-visible{outline:2px solid var(--amber);outline-offset:2px;}
   @media (max-width:640px){p,li{text-align:left;}}
+
+/* ===== AIMMS SITE HEADER (same as project pages) ===== */
+.sh{background:#fff;border-bottom:1px solid #e6e2d3;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;font-size:16px;word-spacing:normal;text-align:left}
+.sh *{box-sizing:border-box}
+.sh-wrap{max-width:1000px;margin:0 auto;padding:16px 24px 0}
+.sh-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.sh-brand img{height:54px;width:auto;max-height:none;background:none;border-radius:0}
+.sh-name{display:block;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.55rem;color:#0A1F44;line-height:1.1}
+.sh-name span{color:#C8922A}
+.sh-tag{display:block;font-family:"Liberation Sans",Arial,sans-serif;font-style:italic;font-weight:700;font-size:.82rem;color:#C8922A;margin-top:2px}
+.sh-nav{display:flex;flex-wrap:wrap;gap:6px 26px;list-style:none;margin:0;padding:14px 0 12px}
+.sh-nav li{margin:0;padding:0}
+.sh-nav a{font-family:"Liberation Sans",Arial,sans-serif;font-weight:400;text-decoration:none;color:#4a5670;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.sh-nav a:hover,.sh-nav a[aria-current="page"]{color:#C8922A}
+.sh-crumbs{box-sizing:border-box;max-width:1000px;margin:0 auto;padding:22px 24px 22px;font-size:.95rem;color:#5a6578;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;word-spacing:normal;text-align:left}
+.sh-crumbs a{color:#C8922A;text-decoration:none}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap">
-    <a class="brand" href="index.html">
-      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
-      <span><span class="brand-name">AIMMS <b>Consulting</b></span><span class="brand-tag">Let&rsquo;s Color The Daring Dreams Together</span></span>
+<header class="sh">
+  <div class="sh-wrap">
+    <a class="sh-brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo" onerror="this.onerror=null;this.src='https://sohail8850.github.io/aimms-consulting/AIMMS_AC_Logo_Transparent-1.jpg'">
+      <span><span class="sh-name">AIMMS <span>Consulting</span></span><span class="sh-tag">Let's Color The Daring Dreams Together</span></span>
     </a>
-    <nav><ul>
+    <nav aria-label="Main"><ul class="sh-nav">
       <li><a href="index.html#framework">Framework</a></li>
       <li><a href="index.html#services">Services</a></li>
       <li><a href="index.html#approach">Approach</a></li>
       <li><a href="certifications.html">Certifications</a></li>
       <li><a href="projects.html">Projects</a></li>
-      <li><a href="case-studies.html" class="active">Case Studies</a></li>
+      <li><a href="case-studies.html" aria-current="page">Case Studies</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul></nav>
   </div>
 </header>
+<div class="sh-crumbs"><a href="case-studies.html">Case Studies</a> / The Theranos Diligence Autopsy</div>
 
 <section class="hero">
   <div class="wrap">
-    <div class="crumb"><a href="case-studies.html">Case Studies</a> / The Theranos Diligence Autopsy</div>
+    
     <h1>The Theranos Diligence Autopsy</h1>
     <p class="sub">A public-record reading of a diagnostics investment story</p>
     <div class="pills"><span>Semantic BI</span><span>Epistemic Rigor</span><span>Market Research</span></div>

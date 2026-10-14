@@ -31,22 +31,8 @@ a{color:var(--navy-2)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 
-/* header: matched to pre-mortem-stress-test.html */
-header.site{background:#fff;border-bottom:1px solid #E6E1D4}
-header.site .wrap{display:block;padding-top:16px;padding-bottom:14px}
-.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
-.brand img{height:54px;width:auto;background:none;border-radius:0;display:block}
-.brand .name{display:block;font-family:var(--serif);font-weight:700;font-size:27px;line-height:1.1;color:var(--navy)}
-.brand .name span{color:#C98A1B}
-.brand .tagline{display:block;font-family:var(--serif);font-style:italic;font-weight:600;font-size:14px;color:#C98A1B;margin-top:2px}
-nav ul{list-style:none;margin:14px 0 0;padding:0;display:flex;gap:26px;flex-wrap:wrap}
-nav a{font-family:var(--mono);text-transform:uppercase;letter-spacing:.04em;font-size:14px;color:#5A6882;text-decoration:none}
-nav a:hover,nav a.active{color:#C98A1B}
-
 /* hero */
 .hero{background:var(--navy);color:#fff;padding:56px 0 64px;border-bottom:6px solid var(--amber)}
-.crumb{font-size:15px;color:#C98A1B;margin:0 0 22px;font-weight:600}
-.crumb a{color:#C98A1B}
 .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(34px,5.2vw,56px);line-height:1.08;margin:0 0 14px;max-width:18ch}
 .hero .sub{font-family:var(--serif);font-weight:700;font-size:clamp(19px,2.4vw,24px);color:#DCE5F7;margin:0 0 26px;max-width:36ch}
 .tags{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 34px}
@@ -112,7 +98,6 @@ section p,section .lead,.cta p,.note,.deliver{max-width:820px}
 /* justified body text across the page */
 main .outcome p,main .lead,main section p,main .timeline .what,.test p,main .note,main .deliver li,main td,main .cta p,main .ledger-cap{text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
 main .formula p{text-align:left;hyphens:none;-webkit-hyphens:none;line-height:1.9}
-.crumb{text-align:left;hyphens:none}
 .sources li{text-align:left;hyphens:none}
 
 @media (max-width:640px){
@@ -120,38 +105,50 @@ main .formula p{text-align:left;hyphens:none;-webkit-hyphens:none;line-height:1.
   .hero{padding:40px 0 48px}
   .btn.ghost{margin:12px 0 0}
 }
+
+/* ===== AIMMS SITE HEADER (same as project pages) ===== */
+.sh{background:#fff;border-bottom:1px solid #e6e2d3;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;font-size:16px;word-spacing:normal;text-align:left}
+.sh *{box-sizing:border-box}
+.sh-wrap{max-width:1000px;margin:0 auto;padding:16px 24px 0}
+.sh-brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.sh-brand img{height:54px;width:auto;max-height:none;background:none;border-radius:0}
+.sh-name{display:block;font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.55rem;color:#0A1F44;line-height:1.1}
+.sh-name span{color:#C8922A}
+.sh-tag{display:block;font-family:"Liberation Sans",Arial,sans-serif;font-style:italic;font-weight:700;font-size:.82rem;color:#C8922A;margin-top:2px}
+.sh-nav{display:flex;flex-wrap:wrap;gap:6px 26px;list-style:none;margin:0;padding:14px 0 12px}
+.sh-nav li{margin:0;padding:0}
+.sh-nav a{font-family:"Liberation Sans",Arial,sans-serif;font-weight:400;text-decoration:none;color:#4a5670;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
+.sh-nav a:hover,.sh-nav a[aria-current="page"]{color:#C8922A}
+.sh-crumbs{box-sizing:border-box;max-width:1000px;margin:0 auto;padding:22px 24px 22px;font-size:.95rem;color:#5a6578;font-family:"Liberation Sans",Arial,sans-serif;line-height:1.65;word-spacing:normal;text-align:left}
+.sh-crumbs a{color:#C8922A;text-decoration:none}
 </style>
 </head>
 <body>
 
-<header class="site">
-  <div class="wrap">
-    <a class="brand" href="index.html">
-      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo">
-      <span>
-        <span class="name">AIMMS <span>Consulting</span></span>
-        <span class="tagline">Let&rsquo;s Color The Daring Dreams Together</span>
-      </span>
+<header class="sh">
+  <div class="sh-wrap">
+    <a class="sh-brand" href="index.html">
+      <img src="AIMMS_AC_Logo_Transparent-1.jpg" alt="AIMMS Consulting logo" onerror="this.onerror=null;this.src='https://sohail8850.github.io/aimms-consulting/AIMMS_AC_Logo_Transparent-1.jpg'">
+      <span><span class="sh-name">AIMMS <span>Consulting</span></span><span class="sh-tag">Let's Color The Daring Dreams Together</span></span>
     </a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="index.html#framework">Framework</a></li>
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#approach">Approach</a></li>
-        <li><a href="certifications.html">Certifications</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a class="active" href="case-studies.html">Case Studies</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <nav aria-label="Main"><ul class="sh-nav">
+      <li><a href="index.html#framework">Framework</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#approach">Approach</a></li>
+      <li><a href="certifications.html">Certifications</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="case-studies.html" aria-current="page">Case Studies</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul></nav>
   </div>
 </header>
+<div class="sh-crumbs"><a href="case-studies.html">Case Studies</a> / The Field Force Expansion Autopsy</div>
 
 <main>
 <div class="hero">
   <div class="wrap">
-    <p class="crumb"><a href="case-studies.html">Case Studies</a> / The Field Force Expansion Autopsy</p>
+    
     <h1>The Field Force Expansion Autopsy</h1>
     <p class="sub">What a documented restructuring teaches about readiness and sequencing</p>
     <div class="tags">
