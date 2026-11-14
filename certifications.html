@@ -123,6 +123,7 @@ flex-shrink:0;
 @media (max-width:760px){
 .cert-pagination{position:static; justify-content:center; margin-top:18px;}
 }
+.cert-pagination.cert-pagination-bottom{position:static; justify-content:center; margin-top:28px;}
 .cert-page-btn{
 font-family:'IBM Plex Mono', monospace;
 font-size:12.5px; font-weight:500;
@@ -234,6 +235,7 @@ html{scroll-behavior:auto;}
 
 <section class="cert-grid-section wrap">
 <div class="cert-grid" id="certGrid"></div>
+<div class="cert-pagination cert-pagination-bottom" id="certPaginationBottom"></div>
 </section>
 
 <footer class="wrap">
@@ -485,25 +487,27 @@ function renderGrid(){
 function renderPagination(){
   const list = filteredCerts();
   const totalPages = Math.max(1, Math.ceil(list.length / PAGE_SIZE));
-  const el = document.getElementById("certPagination");
-
-  let html = `<button class="cert-page-btn" id="certPrev" ${currentPage === 1 ? "disabled" : ""}>‹</button>`;
+  let html = `<button class="cert-page-btn cert-prev" aria-label="Previous page" ${currentPage === 1 ? "disabled" : ""}>‹</button>`;
   for (let p = 1; p <= totalPages; p++){
-    html += `<button class="cert-page-btn${p === currentPage ? " active" : ""}" data-page="${p}">${p}</button>`;
+    html += `<button class="cert-page-btn${p === currentPage ? " active" : ""}" data-page="${p}" aria-label="Page ${p}">${p}</button>`;
   }
-  html += `<button class="cert-page-btn" id="certNext" ${currentPage === totalPages ? "disabled" : ""}>›</button>`;
-  el.innerHTML = html;
+  html += `<button class="cert-page-btn cert-next" aria-label="Next page" ${currentPage === totalPages ? "disabled" : ""}>›</button>`;
 
-  el.querySelectorAll("[data-page]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      currentPage = parseInt(btn.dataset.page, 10);
-      renderAll();
+  ["certPagination", "certPaginationBottom"].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = html;
+    el.querySelectorAll("[data-page]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentPage = parseInt(btn.dataset.page, 10);
+        renderAll();
+      });
     });
+    const prev = el.querySelector(".cert-prev");
+    const next = el.querySelector(".cert-next");
+    if (prev) prev.addEventListener("click", () => { if (currentPage > 1){ currentPage--; renderAll(); } });
+    if (next) next.addEventListener("click", () => { if (currentPage < totalPages){ currentPage++; renderAll(); } });
   });
-  const prev = document.getElementById("certPrev");
-  const next = document.getElementById("certNext");
-  if (prev) prev.addEventListener("click", () => { if (currentPage > 1){ currentPage--; renderAll(); } });
-  if (next) next.addEventListener("click", () => { if (currentPage < totalPages){ currentPage++; renderAll(); } });
 }
 
 function renderAll(){
