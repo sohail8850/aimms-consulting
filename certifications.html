@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Certifications  AIMMS Consulting</title>
-<meta name="description" content="28 verified certifications spanning healthcare and pharma domain knowledge, data science, BI platforms, and strategic delivery  each credential links to its official verification page.">
+<meta name="description" content="36 certifications: 28 online-verifiable credentials in healthcare and pharma, data science, BI platforms and strategic delivery, plus 8 training programmes from 1992 to 2002 shown as scans of the originals.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -225,8 +225,8 @@ html{scroll-behavior:auto;}
 <div class="cert-pagination" id="certPagination"></div>
 <div class="hero-center">
 <span class="eyebrow mono">Credentials</span>
-<h1>28 verified certifications behind the engine.</h1>
-<p>Healthcare and pharma domain knowledge, data science, BI platforms, and strategic delivery  each credential links to its official verification page.</p>
+<h1>36 certifications behind the engine.</h1>
+<p>28 online-verifiable credentials in healthcare and pharma domain knowledge, data science, BI platforms, and strategic delivery, plus 8 training programmes from 1992 to 2002 shown as scans of the original certificates.</p>
 </div>
 <div class="cert-filters" id="certFilters"></div>
 </div>
@@ -391,7 +391,48 @@ const CERTS = [
     title:"What is Social?",
     meta:"Coursera  Northwestern University",
     desc:"Social media strategy and audience analytics fundamentals  rounding out how the Insight Series and client communications reach the right audience.",
-    link:"https://www.coursera.org/account/accomplishments/verify/4MNL3E3P2KQR" }
+    link:"https://www.coursera.org/account/accomplishments/verify/4MNL3E3P2KQR" },
+
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Positive Attitude",
+    meta:"Synergize, Karachi · Aug 2002",
+    desc:"A full-day programme on removing negative mindsets, completed while serving as Sales Manager at Merck Pharmaceuticals — the behavioral groundwork for the Behavioral &amp; Cognitive Bias lens.",
+    link:"certificates/synergize-positive-attitude-2002.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Introduction to Human Resource Management",
+    meta:"Pakistan Institute of Management, Karachi · Jun 1998",
+    desc:"Five days of HRM fundamentals at the Institute — the people-systems view behind every field-force and commercial-organisation engagement.",
+    link:"certificates/pim-introduction-to-hrm-1998.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Utinor Training Launch Meeting",
+    meta:"Merck Pharma Division, Rawalpindi · Jun 1995",
+    desc:"Product-launch training run by Merck Pharma Division for the field team — early hands-on grounding in how a pharma launch is taught and executed.",
+    link:"certificates/merck-utinor-training-launch-1995.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Problem Solving &amp; Decision Making",
+    meta:"Pakistan Institute of Management, Karachi · Mar 1994",
+    desc:"Structured problem-solving and decision methods at the Institute — the root of the evidence-first habit the engine now formalises.",
+    link:"certificates/pim-problem-solving-decision-making-1994.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Effective Communication &amp; Presentation Skills",
+    meta:"Pakistan Institute of Management, Karachi · Jul 1993",
+    desc:"Communication and presentation craft for commercial leaders — the discipline behind boardroom-ready briefs and client presentations.",
+    link:"certificates/pim-communication-presentation-skills-1993.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Performance Appraisal, Coaching &amp; Counselling",
+    meta:"Pakistan Institute of Management, Karachi · Feb 1993",
+    desc:"An in-house customised programme on appraising, coaching and counselling field teams — the management practice behind team restructuring and mentoring work.",
+    link:"certificates/pim-performance-appraisal-coaching-1993.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Regional Manager as Marketing Researcher",
+    meta:"Pakistan Institute of Management, Karachi · Dec 1992",
+    desc:"Marketing research for regional managers — an early foundation for the Mariana-trench-level market research lens.",
+    link:"certificates/pim-regional-manager-marketing-researcher-1992.jpg", label:"View certificate scan →" },
+  { cat:"Sales & Management Leadership, 1992–2002",
+    title:"Field Sales Management Programme",
+    meta:"Pakistan Institute of Management, Karachi · Aug 1992",
+    desc:"An in-house customised programme on managing a field sales force — the starting point of a commercial career now spanning more than four decades.",
+    link:"certificates/pim-field-sales-management-1992.jpg", label:"View certificate scan →" }
 ];
 
 const PAGE_SIZE = 6;
@@ -436,7 +477,7 @@ function renderGrid(){
       <h3>${c.title}</h3>
       <p class="meta mono">${c.meta}</p>
       <p>${c.desc}</p>
-      <a class="verify mono" href="${c.link}" target="_blank" rel="noopener">Verify credential →</a>
+      <a class="verify mono" href="${c.link}" target="_blank" rel="noopener">${c.label || "Verify credential →"}</a>
     </div>
   `).join("");
 }
